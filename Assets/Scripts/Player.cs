@@ -33,10 +33,13 @@ public class Player : MonoBehaviour
 
     [SerializeField]
     private bool _shieldActive;
-
     //variable reference to shield visualizer
     [SerializeField]
     private GameObject _shieldVisualizer;
+    [SerializeField]
+    private int _shieldStrength;
+    SpriteRenderer _spriteRendererShield;
+
     [SerializeField]
     private GameObject _rightEnginePrefab;
     [SerializeField]
@@ -54,6 +57,8 @@ public class Player : MonoBehaviour
 
     private AudioSource _audioSource;
 
+    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -62,6 +67,7 @@ public class Player : MonoBehaviour
         _spawnManager = GameObject.Find("Spawn_Manager").GetComponent<SpawnManager>();
         _uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
         _audioSource = GetComponent<AudioSource>();
+        _spriteRendererShield = GameObject.Find("Shield").GetComponent<SpriteRenderer>();
 
         if (_spawnManager == null)
         {
@@ -81,6 +87,9 @@ public class Player : MonoBehaviour
         {
             _audioSource.clip = _laserSoundClip;
         }
+
+        
+
     }
 
     // Update is called once per frame
@@ -166,16 +175,34 @@ public class Player : MonoBehaviour
     {
         if (_shieldActive == true)
         {
-            _shieldVisualizer.SetActive(false);
-            _shieldActive = false;
-            return;
+            //_shieldVisualizer.SetActive(false);
+            //_shieldActive = false;
+            _shieldStrength--;
+            //return;
         }
-
         else
         {
-            _playerLife = _playerLife - 1;
+            _playerLife--;
         }
 
+        if (_shieldStrength == 3)
+        {
+            _spriteRendererShield.color = Color.white;
+        }
+
+        if (_shieldStrength == 2)
+        {
+            _spriteRendererShield.color = Color.yellow;
+        }
+        if (_shieldStrength == 1)
+        {
+            _spriteRendererShield.color = Color.red;
+        }
+        if (_shieldStrength == 0)
+        {
+            _shieldActive = false;
+        }
+        
         //if lives is 2 enable right engine
         //if lives is 1 enable left engine
         if (_playerLife == 2)
@@ -233,14 +260,16 @@ public class Player : MonoBehaviour
     public void ShieldActive()
     {
         _shieldActive = true;
+        _shieldStrength = 3;
         _shieldVisualizer.SetActive(true);
-        StartCoroutine(ShieldDownRoutine());   
+        StartCoroutine(ShieldDownRoutine());
     }
 
     IEnumerator ShieldDownRoutine()
     {
         yield return new WaitForSeconds(5.0f);
         _shieldActive = false;
+        _shieldStrength = 0;
         _shieldVisualizer.SetActive(false);
     }
 

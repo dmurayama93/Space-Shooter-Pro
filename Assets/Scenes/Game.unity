@@ -1607,6 +1607,7 @@ MonoBehaviour:
   _playerLife: 3
   _shieldActive: 0
   _shieldVisualizer: {fileID: 120446317}
+  _shieldStrength: 0
   _rightEnginePrefab: {fileID: 540453618}
   _leftEnginePrefab: {fileID: 222078929}
   _score: 0
