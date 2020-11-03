@@ -100,8 +100,19 @@ public class Player : MonoBehaviour
         float verticalInput = Input.GetAxis("Vertical");
 
         Vector3 direction = new Vector3(horizontalInput, verticalInput, 0);
-          
-        transform.Translate(direction * _speed * Time.deltaTime);
+
+        //Thruster
+        if (Input.GetKey("left shift"))
+        {
+            _speed = 10;
+            transform.Translate(direction * _speed * Time.deltaTime);
+        }
+        else
+        {
+            _speed = 5;
+            transform.Translate(direction * _speed * Time.deltaTime);
+        }
+        
 
         float _maxX = 9f;
         float _minX = -9f;
