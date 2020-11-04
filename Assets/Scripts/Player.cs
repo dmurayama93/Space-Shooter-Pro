@@ -4,6 +4,7 @@ using System.Collections.Specialized;
 //using System.Threading;
 //using TMPro.EditorUtilities;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.UIElements;
 
 public class Player : MonoBehaviour
@@ -37,8 +38,8 @@ public class Player : MonoBehaviour
     [SerializeField]
     private GameObject _shieldVisualizer;
     [SerializeField]
-    private int _shieldStrength;
-    SpriteRenderer _spriteRendererShield;
+    private int _shieldStrength = 0;
+    //SpriteRenderer _spriteRendererShield;
 
     [SerializeField]
     private GameObject _rightEnginePrefab;
@@ -57,7 +58,9 @@ public class Player : MonoBehaviour
 
     private AudioSource _audioSource;
 
-    
+    //ammo
+    [SerializeField]
+    private int _actualAmmo;
 
     // Start is called before the first frame update
     void Start()
@@ -66,8 +69,7 @@ public class Player : MonoBehaviour
         transform.position = new Vector3(0, 0, 0);
         _spawnManager = GameObject.Find("Spawn_Manager").GetComponent<SpawnManager>();
         _uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
-        _audioSource = GetComponent<AudioSource>();
-        _spriteRendererShield = GameObject.Find("Shield").GetComponent<SpriteRenderer>();
+        _audioSource = GetComponent<AudioSource>();      
 
         if (_spawnManager == null)
         {
@@ -88,7 +90,7 @@ public class Player : MonoBehaviour
             _audioSource.clip = _laserSoundClip;
         }
 
-        
+        _actualAmmo = 15;
 
     }
 
@@ -97,10 +99,24 @@ public class Player : MonoBehaviour
     {
         CalculateMovement();
 
-        if (Input.GetKeyDown(KeyCode.Space) && Time.time > _fireCD)
+        if (Input.GetKeyDown(KeyCode.Space) && Time.time > _fireCD && _tripleShotActive == true)
         {
             FireLaser();
+            //Can't get the reload text to dissapear when TripleShot Activated.
+            _uiManager.ReloadTextFalse();
         }
+        if (Input.GetKeyDown(KeyCode.Space) && Time.time > _fireCD && _actualAmmo > 0)
+        {
+            FireLaser();
+            _actualAmmo--;
+        }
+        if (Input.GetKeyDown(KeyCode.Space) && _actualAmmo < 1)
+        {
+            Debug.Log("Reload");
+            _uiManager.ReloadText();
+        }
+        
+
     }   
    void CalculateMovement()
     {
@@ -153,7 +169,7 @@ public class Player : MonoBehaviour
         }
         
     }
-    
+
     void FireLaser()
     {
         _fireCD = Time.time + _fireRate;
@@ -173,38 +189,19 @@ public class Player : MonoBehaviour
 
     public void Damage()
     {
-        if (_shieldActive == true)
+        if (_shieldActive == true /*&& _shieldStrength > 0*/)
         {
-            //_shieldVisualizer.SetActive(false);
-            //_shieldActive = false;
-            _shieldStrength--;
-            //return;
+            _shieldVisualizer.SetActive(false);
+            _shieldActive = false;
+            //_shieldStrength--;
+            return;
         }
         else
         {
             _playerLife--;
-        }
-
-        if (_shieldStrength == 3)
-        {
-            _spriteRendererShield.color = Color.white;
-        }
-
-        if (_shieldStrength == 2)
-        {
-            _spriteRendererShield.color = Color.yellow;
-        }
-        if (_shieldStrength == 1)
-        {
-            _spriteRendererShield.color = Color.red;
-        }
-        if (_shieldStrength == 0)
-        {
             _shieldActive = false;
         }
-        
-        //if lives is 2 enable right engine
-        //if lives is 1 enable left engine
+
         if (_playerLife == 2)
         {
             _rightEnginePrefab.SetActive(true);
@@ -260,7 +257,7 @@ public class Player : MonoBehaviour
     public void ShieldActive()
     {
         _shieldActive = true;
-        _shieldStrength = 3;
+        //_shieldStrength = 3;
         _shieldVisualizer.SetActive(true);
         StartCoroutine(ShieldDownRoutine());
     }
@@ -269,7 +266,7 @@ public class Player : MonoBehaviour
     {
         yield return new WaitForSeconds(5.0f);
         _shieldActive = false;
-        _shieldStrength = 0;
+        //_shieldStrength = 0;
         _shieldVisualizer.SetActive(false);
     }
 
@@ -286,5 +283,12 @@ public class Player : MonoBehaviour
             Damage();
             Destroy(other.gameObject);
         }
+    }
+
+    private void AmmoCount()
+    {
+        //max ammo is 15 shots
+        //if actual ammo = 0, reload
+
     }
 }

@@ -18,6 +18,8 @@ public class UIManager : MonoBehaviour
     private Text _restartText;
     [SerializeField]
     private Text _returnMainMenuText;
+    [SerializeField]
+    private Text _reloadText;
 
     private GameManager _gameManager;
 
@@ -28,12 +30,22 @@ public class UIManager : MonoBehaviour
         _gameOverText.gameObject.SetActive(false);
         _restartText.gameObject.SetActive(false);
         _returnMainMenuText.gameObject.SetActive(false);
+        _reloadText.gameObject.SetActive(false);
         _gameManager = GameObject.Find("Game_Manager").GetComponent<GameManager>();
 
         if (_gameManager == null)
         {
             Debug.Log("Game Manager is Null");
         }
+    }
+
+    public void ReloadText()
+    {
+        _reloadText.gameObject.SetActive(true);
+    }
+    public void ReloadTextFalse()
+    {
+        _reloadText.gameObject.SetActive(false);
     }
 
     public void UpdateScore(int playerScore)
