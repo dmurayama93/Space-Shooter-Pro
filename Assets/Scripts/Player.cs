@@ -206,12 +206,14 @@ public class Player : MonoBehaviour
         if (_playerLife == 2)
         {
             _rightEnginePrefab.SetActive(true);
+            _leftEnginePrefab.SetActive(false);
         }
         else if (_playerLife == 1)
         {
             _leftEnginePrefab.SetActive(true);
+            _rightEnginePrefab.SetActive(true);
         }
-        else
+        else if (_playerLife == 3)
         {
             _rightEnginePrefab.SetActive(false);
             _leftEnginePrefab.SetActive(false);
@@ -289,6 +291,34 @@ public class Player : MonoBehaviour
         {
             Damage();
             Destroy(other.gameObject);
+        }
+    }
+
+    public void PlusOneHP()
+    {
+        if (_playerLife == 3)
+        {
+            return;
+        }
+        else
+        {
+            _playerLife++;
+            _uiManager.UpdateLives(_playerLife);
+        }
+        if (_playerLife == 2)
+        {
+            _rightEnginePrefab.SetActive(true);
+            _leftEnginePrefab.SetActive(false);
+        }
+        else if (_playerLife == 1)
+        {
+            _leftEnginePrefab.SetActive(true);
+            _rightEnginePrefab.SetActive(true);
+        }
+        else if (_playerLife == 3)
+        {
+            _rightEnginePrefab.SetActive(false);
+            _leftEnginePrefab.SetActive(false);
         }
     }
 

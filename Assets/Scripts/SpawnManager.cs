@@ -17,6 +17,8 @@ public class SpawnManager : MonoBehaviour
     [SerializeField]
     private GameObject _reloadPrefab;
     [SerializeField]
+    private GameObject _hpOnePrefab;
+    [SerializeField]
     private GameObject[] _powerUps;
     
 
@@ -59,7 +61,7 @@ public class SpawnManager : MonoBehaviour
         while (_stopSpawning == false)
         {
             _powerUpSpawnTimer = Random.Range(3.0f, 7.0f);
-            int randomPowerUp = Random.Range(0, 4);
+            int randomPowerUp = Random.Range(0, 5);
 
             Vector3 posToSpawn = new Vector3(Random.Range(-8f, 8f), 7, 0);
             Instantiate(_powerUps[randomPowerUp], posToSpawn, Quaternion.identity);

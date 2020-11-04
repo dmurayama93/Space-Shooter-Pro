@@ -1364,13 +1364,16 @@ MonoBehaviour:
     type: 3}
   _speedBoostPowerUpPrefab: {fileID: 6372980721060826508, guid: 5dc07265f2e0aed458e5c185afb861ee,
     type: 3}
+  _reloadPrefab: {fileID: 2654666376043723794, guid: 47d94b6eca6676245884119c5d22a6e6,
+    type: 3}
+  _hpOnePrefab: {fileID: 843253278399745392, guid: be51fca569bf939408ffbd952cc56156,
+    type: 3}
   _powerUps:
   - {fileID: 2361354608981466359, guid: e998f5aa485c27448ab7c3192288f7dc, type: 3}
   - {fileID: 6372980721060826508, guid: 5dc07265f2e0aed458e5c185afb861ee, type: 3}
   - {fileID: 6883184559309571409, guid: 7220edbcc3ad2024ca82afbbd958795e, type: 3}
   - {fileID: 2654666376043723794, guid: 47d94b6eca6676245884119c5d22a6e6, type: 3}
-  _reloadPrefab: {fileID: 2654666376043723794, guid: 47d94b6eca6676245884119c5d22a6e6,
-    type: 3}
+  - {fileID: 843253278399745392, guid: be51fca569bf939408ffbd952cc56156, type: 3}
 --- !u!4 &889571294
 Transform:
   m_ObjectHideFlags: 0
