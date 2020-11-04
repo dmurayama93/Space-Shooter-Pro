@@ -274,14 +274,22 @@ public class Player : MonoBehaviour
     {
         _shieldActive = true;
         _shieldStrength = 3;
+        _shield.ShieldStrength(_shieldStrength);
 
         _shieldVisualizer.SetActive(true);
+
         StopCoroutine(ShieldDownRoutine());
         StartCoroutine(ShieldDownRoutine());
     }
 
     IEnumerator ShieldDownRoutine()
     {
+        if (_shieldStrength < 1)
+        {
+            _shieldActive = false;
+            _shieldVisualizer.SetActive(false);
+        }
+
         yield return new WaitForSeconds(5.0f);
         _shieldActive = false;
         _shieldStrength = 0;
