@@ -58,6 +58,12 @@ public class Player : MonoBehaviour
 
     private AudioSource _audioSource;
 
+    [SerializeField]
+    private GameObject Shield;
+    private Shield _shield;
+
+
+
     //ammo
     [SerializeField]
     private int _actualAmmo;
@@ -69,7 +75,8 @@ public class Player : MonoBehaviour
         transform.position = new Vector3(0, 0, 0);
         _spawnManager = GameObject.Find("Spawn_Manager").GetComponent<SpawnManager>();
         _uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
-        _audioSource = GetComponent<AudioSource>();      
+        _audioSource = GetComponent<AudioSource>();
+        _shield = Shield.GetComponent<Shield>();
 
         if (_spawnManager == null)
         {
@@ -190,12 +197,10 @@ public class Player : MonoBehaviour
 
     public void Damage()
     {
-        if (_shieldActive == true /*&& _shieldStrength > 0*/)
+        if (_shieldActive == true && _shieldStrength > 0)
         {
-            _shieldVisualizer.SetActive(false);
-            _shieldActive = false;
-            //_shieldStrength--;
-            return;
+            _shieldStrength--;
+            _shield.ShieldStrength(_shieldStrength);
         }
         else
         {
@@ -240,6 +245,7 @@ public class Player : MonoBehaviour
     public void TripleShotActive()
     {
         _tripleShotActive = true;
+        StopCoroutine(TripleShotPowerDownRoutine());
         StartCoroutine(TripleShotPowerDownRoutine());
     }
 
@@ -253,6 +259,7 @@ public class Player : MonoBehaviour
     {
         _speedBoostActive = true;
         _speed *= _speedMultiplier;
+        StopCoroutine(SpeedBoostDownRoutine());
         StartCoroutine(SpeedBoostDownRoutine());
     }
 
@@ -266,8 +273,10 @@ public class Player : MonoBehaviour
     public void ShieldActive()
     {
         _shieldActive = true;
-        //_shieldStrength = 3;
+        _shieldStrength = 3;
+
         _shieldVisualizer.SetActive(true);
+        StopCoroutine(ShieldDownRoutine());
         StartCoroutine(ShieldDownRoutine());
     }
 
@@ -275,7 +284,7 @@ public class Player : MonoBehaviour
     {
         yield return new WaitForSeconds(5.0f);
         _shieldActive = false;
-        //_shieldStrength = 0;
+        _shieldStrength = 0;
         _shieldVisualizer.SetActive(false);
     }
 

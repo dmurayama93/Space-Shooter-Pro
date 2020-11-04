@@ -6,8 +6,8 @@ public class Shield : MonoBehaviour
 {
     //3 Hit Shield
     //Visualize by changing colors white > yellow > red
-    [SerializeField]
-    private int _shieldLives;
+    //[SerializeField]
+    //private int _shieldLives;
 
     SpriteRenderer _spriteRendererShield;
 
@@ -25,10 +25,10 @@ public class Shield : MonoBehaviour
     {
         
     }
-    public void ShieldStrength()
+    public void ShieldStrength(int _shieldLives)
     {
 
-        _player.ShieldActive();
+        //_player.ShieldActive();
 
         if (_shieldLives == 3)
         {

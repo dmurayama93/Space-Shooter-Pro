@@ -132,13 +132,14 @@ GameObject:
   - component: {fileID: 120446319}
   - component: {fileID: 120446318}
   - component: {fileID: 120446320}
+  - component: {fileID: 120446321}
   m_Layer: 0
   m_Name: Shield
   m_TagString: Shield
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &120446318
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -146,7 +147,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 120446317}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -222,6 +223,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &120446321
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 120446317}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c5225eea6a6bd147a5891081bd0de09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &222078929
 GameObject:
   m_ObjectHideFlags: 0
@@ -1700,6 +1713,7 @@ MonoBehaviour:
   _laserSoundClip: {fileID: 8300000, guid: 75676f361bdfeaf41a46623e95df3dbc, type: 3}
   _playerExplosionSoundClip: {fileID: 8300000, guid: a885c043fab7e46438bba03ba9dab6bc,
     type: 3}
+  Shield: {fileID: 120446317}
   _actualAmmo: 0
 --- !u!212 &1510341006
 SpriteRenderer:
