@@ -62,7 +62,11 @@ public class Player : MonoBehaviour
     private GameObject Shield;
     private Shield _shield;
 
-
+    public Thruster thruster;
+    [SerializeField]
+    private float _maxBoost = 100f;
+    [SerializeField]
+    private float _currentBoost;
 
     //ammo
     [SerializeField]
@@ -77,6 +81,10 @@ public class Player : MonoBehaviour
         _uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
         _audioSource = GetComponent<AudioSource>();
         _shield = Shield.GetComponent<Shield>();
+
+        //set max boost at game start, and set in UI.
+        _currentBoost = _maxBoost;
+        thruster.SetMaxBoost(_currentBoost);
 
         if (_spawnManager == null)
         {
@@ -125,6 +133,11 @@ public class Player : MonoBehaviour
             _uiManager.ReloadTextFalse();
         }
 
+        if (_currentBoost >= 100)
+        {
+            _currentBoost = _maxBoost;
+        }
+
     }   
    void CalculateMovement()
     {
@@ -135,15 +148,27 @@ public class Player : MonoBehaviour
         Vector3 direction = new Vector3(horizontalInput, verticalInput, 0);
 
         //Thruster
-        if (Input.GetKey("left shift"))
+        if (Input.GetKey("left shift") && _currentBoost > 0)
         {
             _speed = 10;
+            _currentBoost-=1.5f;
+            
+            thruster.SetValue(_currentBoost);
             transform.Translate(direction * _speed * Time.deltaTime);
         }
         else
         {
-            _speed = 5;
+            _speed = 5;        
             transform.Translate(direction * _speed * Time.deltaTime);
+            if (_currentBoost <= 0)
+            {
+                StartCoroutine(ThrusterDelay());
+            }
+            else
+            {
+                _currentBoost += 0.5f;
+                thruster.SetValue(_currentBoost);
+            }
         }
         
 
@@ -176,6 +201,13 @@ public class Player : MonoBehaviour
             transform.position = new Vector3(transform.position.x, _minY, 0);
         }
         
+    }
+
+    IEnumerator ThrusterDelay()
+    {
+        yield return new WaitForSeconds(2.0f);
+        _currentBoost += 0.5f;
+        thruster.SetValue(_currentBoost);
     }
 
     void FireLaser()
