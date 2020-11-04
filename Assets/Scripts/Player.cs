@@ -102,8 +102,6 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && Time.time > _fireCD && _tripleShotActive == true)
         {
             FireLaser();
-            //Can't get the reload text to dissapear when TripleShot Activated.
-            _uiManager.ReloadTextFalse();
         }
         if (Input.GetKeyDown(KeyCode.Space) && Time.time > _fireCD && _actualAmmo > 0)
         {
@@ -115,7 +113,10 @@ public class Player : MonoBehaviour
             Debug.Log("Reload");
             _uiManager.ReloadText();
         }
-        
+        if (_tripleShotActive == true)
+        {
+            _uiManager.ReloadTextFalse();
+        }
 
     }   
    void CalculateMovement()
@@ -226,6 +227,12 @@ public class Player : MonoBehaviour
             _audioSource.Play();
             Destroy(this.gameObject, 2.5f);
         }
+    }
+
+    public void RefillAmmo()
+    {
+        _actualAmmo = 15;
+        _uiManager.ReloadTextFalse();
     }
 
     public void TripleShotActive()
