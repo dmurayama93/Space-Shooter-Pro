@@ -114,7 +114,24 @@ public class Enemy : MonoBehaviour
             Destroy(GetComponent<Collider2D>());
             Destroy(this.gameObject, 2.8f);
             
-        }       
+        }
+
+        if (other.tag == "Ring")
+        {
+            if(_player != null)
+            {
+                _player.AddScore(10);
+            }
+
+            _enemyAnimator.SetTrigger("OnEnemyDeath");
+            _enemySpeed = 0;
+
+            _audioSource.clip = _enemyExplosion;
+            _audioSource.Play();
+
+            Destroy(GetComponent<Collider2D>());
+            Destroy(this.gameObject, 2.8f);
+        }
     }
 
     private void FireLaser()

@@ -33,6 +33,7 @@ public class PowerUp : MonoBehaviour
 
             AudioSource.PlayClipAtPoint(_clip, transform.position);
 
+            //remember to edit spawn manager each time you add a new powerup
             if (player != null)
             {
                 switch (_powerupID)
@@ -52,6 +53,10 @@ public class PowerUp : MonoBehaviour
                     case 4:
                         player.PlusOneHP();
                         break;
+                    case 5:
+                        player.RingActive();
+                        break;
+
                 }
 
             }

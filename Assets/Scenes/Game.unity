@@ -1382,12 +1382,15 @@ MonoBehaviour:
     type: 3}
   _hpOnePrefab: {fileID: 843253278399745392, guid: be51fca569bf939408ffbd952cc56156,
     type: 3}
+  _ringPrefab: {fileID: 468234661343942130, guid: ebc405b92f14047469e5ec8a2af92c41,
+    type: 3}
   _powerUps:
   - {fileID: 2361354608981466359, guid: e998f5aa485c27448ab7c3192288f7dc, type: 3}
   - {fileID: 6372980721060826508, guid: 5dc07265f2e0aed458e5c185afb861ee, type: 3}
   - {fileID: 6883184559309571409, guid: 7220edbcc3ad2024ca82afbbd958795e, type: 3}
   - {fileID: 2654666376043723794, guid: 47d94b6eca6676245884119c5d22a6e6, type: 3}
   - {fileID: 843253278399745392, guid: be51fca569bf939408ffbd952cc56156, type: 3}
+  - {fileID: 468234661343942130, guid: ebc405b92f14047469e5ec8a2af92c41, type: 3}
 --- !u!4 &889571294
 Transform:
   m_ObjectHideFlags: 0
@@ -1735,7 +1738,10 @@ MonoBehaviour:
     type: 3}
   _tripleShotPrefab: {fileID: 8953992494970950754, guid: 511583a0b27f64143a99778dade631c6,
     type: 3}
+  _ringPrefab: {fileID: 101456972021218864, guid: bbfc4ad5069a80a46918aec4f7353faf,
+    type: 3}
   _playerLife: 3
+  _ringActive: 0
   _shieldActive: 0
   _shieldVisualizer: {fileID: 120446317}
   _shieldStrength: 0
@@ -1751,6 +1757,8 @@ MonoBehaviour:
   _currentBoost: 0
   _actualAmmo: 0
   cameraShake: {fileID: 2127793633}
+  _ringShot: {fileID: -2000326179834491545, guid: bbfc4ad5069a80a46918aec4f7353faf,
+    type: 3}
 --- !u!212 &1510341006
 SpriteRenderer:
   m_ObjectHideFlags: 0

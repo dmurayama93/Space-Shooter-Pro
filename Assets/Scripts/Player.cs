@@ -21,6 +21,8 @@ public class Player : MonoBehaviour
 
     [SerializeField]
     private GameObject _tripleShotPrefab;
+    [SerializeField]
+    private GameObject _ringPrefab;
 
     private float _fireRate = 0.15f;
     private float _fireCD = -1f;
@@ -30,6 +32,8 @@ public class Player : MonoBehaviour
     private SpawnManager _spawnManager;
 
     private bool _tripleShotActive;
+    [SerializeField]
+    private bool _ringActive;
     private bool _speedBoostActive;
 
     [SerializeField]
@@ -73,6 +77,8 @@ public class Player : MonoBehaviour
     private int _actualAmmo;
 
     public CameraShake cameraShake;
+
+    public RingShot _ringShot;
 
     // Start is called before the first frame update
     void Start()
@@ -133,6 +139,11 @@ public class Player : MonoBehaviour
         if (_tripleShotActive == true)
         {
             _uiManager.ReloadTextFalse();
+        }
+        if (_ringActive == true)
+        {
+             Instantiate(_ringPrefab, transform.position, Quaternion.identity);
+            _ringActive = false;
         }
 
         if (_currentBoost >= 100)
@@ -283,6 +294,11 @@ public class Player : MonoBehaviour
         _tripleShotActive = true;
         StopCoroutine(TripleShotPowerDownRoutine());
         StartCoroutine(TripleShotPowerDownRoutine());
+    }
+
+    public void RingActive()
+    {
+        _ringActive = true;
     }
 
     IEnumerator TripleShotPowerDownRoutine()
