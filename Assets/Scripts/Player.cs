@@ -72,6 +72,8 @@ public class Player : MonoBehaviour
     [SerializeField]
     private int _actualAmmo;
 
+    public CameraShake cameraShake;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -162,6 +164,7 @@ public class Player : MonoBehaviour
             transform.Translate(direction * _speed * Time.deltaTime);
             if (_currentBoost <= 0)
             {
+                //consider changing to a cd system versus coroutine
                 StartCoroutine(ThrusterDelay());
             }
             else
@@ -237,6 +240,7 @@ public class Player : MonoBehaviour
         else
         {
             _playerLife--;
+            StartCoroutine(cameraShake.Shake(0.15f, 0.5f));
             _shieldActive = false;
         }
 

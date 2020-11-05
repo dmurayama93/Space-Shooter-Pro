@@ -22,6 +22,8 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private bool _enemyCD = true;
 
+    //public CameraShake camerashake;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -82,6 +84,8 @@ public class Enemy : MonoBehaviour
             //trigger anim
             _enemyAnimator.SetTrigger("OnEnemyDeath");
             _enemySpeed = 0;
+
+            //StartCoroutine(camerashake.Shake(0.15f, 0.4f));
 
             _audioSource.clip = _enemyExplosion;
             _audioSource.Play();
