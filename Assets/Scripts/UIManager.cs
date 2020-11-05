@@ -20,6 +20,8 @@ public class UIManager : MonoBehaviour
     private Text _returnMainMenuText;
     [SerializeField]
     private Text _reloadText;
+    [SerializeField]
+    private Text _ammoText;
 
     private GameManager _gameManager;
 
@@ -53,6 +55,10 @@ public class UIManager : MonoBehaviour
         _scoreText.text = "Score: " + playerScore.ToString();
     }
     
+    public void AmmoText(int ammoCount)
+    {
+        _ammoText.text = ammoCount.ToString() + "/15";
+    }
     public void UpdateLives(int currentLives)
     {
         //is this how the uimanager knows that the game is over?

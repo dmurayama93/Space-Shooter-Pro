@@ -130,6 +130,7 @@ public class Player : MonoBehaviour
         {
             FireLaser();
             _actualAmmo--;
+            _uiManager.AmmoText(_actualAmmo);
         }
         if (Input.GetKeyDown(KeyCode.Space) && _actualAmmo < 1)
         {
@@ -287,6 +288,7 @@ public class Player : MonoBehaviour
     {
         _actualAmmo = 15;
         _uiManager.ReloadTextFalse();
+        _uiManager.AmmoText(_actualAmmo);
     }
 
     public void TripleShotActive()

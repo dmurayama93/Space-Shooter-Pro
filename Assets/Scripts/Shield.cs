@@ -29,9 +29,6 @@ public class Shield : MonoBehaviour
     }
     public void ShieldStrength(int _shieldLives)
     {
-
-        //_player.ShieldActive();
-
         if (_shieldLives == 3 && _notWhite == true)
         {
             _spriteRendererShield.color = Color.white;
