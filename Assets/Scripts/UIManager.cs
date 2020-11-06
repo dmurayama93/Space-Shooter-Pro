@@ -11,6 +11,8 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private Image _livesImg;
     [SerializeField]
+    private Image _thrusterFill;
+    [SerializeField]
     private Sprite[] _liveSprites;
     [SerializeField]
     private Text _gameOverText;
@@ -54,7 +56,6 @@ public class UIManager : MonoBehaviour
     {
         _scoreText.text = "Score: " + playerScore.ToString();
     }
-    
     public void AmmoText(int ammoCount)
     {
         _ammoText.text = ammoCount.ToString() + "/15";

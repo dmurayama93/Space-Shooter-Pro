@@ -457,6 +457,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _scoreText: {fileID: 296907952}
   _livesImg: {fileID: 1271136925}
+  _thrusterFill: {fileID: 0}
   _liveSprites:
   - {fileID: 21300000, guid: ba53e111f0125654cabfd4eefaf3a657, type: 3}
   - {fileID: 21300000, guid: 80fba5ece7697c44eacc036539c1b552, type: 3}
@@ -1425,6 +1426,8 @@ MonoBehaviour:
     type: 3}
   _ringPrefab: {fileID: 468234661343942130, guid: ebc405b92f14047469e5ec8a2af92c41,
     type: 3}
+  _thrustDebuffPrefab: {fileID: 1286930103458454880, guid: 440237e1f6ca46345a2f6989c73369b8,
+    type: 3}
   _powerUps:
   - {fileID: 2361354608981466359, guid: e998f5aa485c27448ab7c3192288f7dc, type: 3}
   - {fileID: 6372980721060826508, guid: 5dc07265f2e0aed458e5c185afb861ee, type: 3}
@@ -1432,6 +1435,7 @@ MonoBehaviour:
   - {fileID: 2654666376043723794, guid: 47d94b6eca6676245884119c5d22a6e6, type: 3}
   - {fileID: 843253278399745392, guid: be51fca569bf939408ffbd952cc56156, type: 3}
   - {fileID: 468234661343942130, guid: ebc405b92f14047469e5ec8a2af92c41, type: 3}
+  - {fileID: 1286930103458454880, guid: 440237e1f6ca46345a2f6989c73369b8, type: 3}
 --- !u!4 &889571294
 Transform:
   m_ObjectHideFlags: 0
@@ -2096,6 +2100,7 @@ MonoBehaviour:
   thruster: {fileID: 1937017875}
   _maxBoost: 100
   _currentBoost: 0
+  _thrusterDebuff: 0
   _actualAmmo: 0
   cameraShake: {fileID: 2127793633}
   _ringShot: {fileID: -2000326179834491545, guid: bbfc4ad5069a80a46918aec4f7353faf,
@@ -2407,7 +2412,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.735849, g: 0.45508173, b: 0, a: 1}
+  m_Color: {r: 1, g: 0.5284636, b: 0, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -2533,6 +2538,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slider: {fileID: 1937017874}
+  gradient:
+    serializedVersion: 2
+    key0: {r: 0.972549, g: 0, b: 0, a: 1}
+    key1: {r: 0.9764706, g: 0.76215273, b: 0.015686246, a: 1}
+    key2: {r: 1, g: 0.612187, b: 0.0745098, a: 1}
+    key3: {r: 1, g: 0.7706565, b: 0.07075471, a: 1}
+    key4: {r: 0, g: 0, b: 0, a: 0}
+    key5: {r: 0, g: 0, b: 0, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 0
+    ctime1: 24865
+    ctime2: 65535
+    ctime3: 65535
+    ctime4: 0
+    ctime5: 0
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 65535
+    atime2: 65535
+    atime3: 65535
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_NumColorKeys: 3
+    m_NumAlphaKeys: 2
+  fill: {fileID: 1788963527}
+  player: {fileID: 1510341005}
 --- !u!1 &2053706477
 GameObject:
   m_ObjectHideFlags: 0

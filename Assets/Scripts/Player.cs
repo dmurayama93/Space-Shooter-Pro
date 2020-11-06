@@ -71,6 +71,8 @@ public class Player : MonoBehaviour
     private float _maxBoost = 100f;
     [SerializeField]
     private float _currentBoost;
+    [SerializeField]
+    private bool _thrusterDebuff;
 
     //ammo
     [SerializeField]
@@ -162,7 +164,7 @@ public class Player : MonoBehaviour
         Vector3 direction = new Vector3(horizontalInput, verticalInput, 0);
 
         //Thruster
-        if (Input.GetKey("left shift") && _currentBoost > 0)
+        if (Input.GetKey("left shift") && _currentBoost > 0 && _thrusterDebuff == false)
         {
             _speed = 10;
             _currentBoost-=1.5f;
@@ -291,6 +293,19 @@ public class Player : MonoBehaviour
         _uiManager.AmmoText(_actualAmmo);
     }
 
+    public void ThrusterDebuff()
+    {
+        _thrusterDebuff = true;
+        //reference thruster script and call debuff method
+        thruster.ThrusterDebuffActive(_thrusterDebuff);
+        StartCoroutine(ThrusterDebuffDownRoutine());
+    }
+    IEnumerator ThrusterDebuffDownRoutine()
+    {
+        yield return new WaitForSeconds(3.0f);
+        _thrusterDebuff = false;
+        thruster.ThrusterDebuffActive(_thrusterDebuff);
+    }
     public void TripleShotActive()
     {
         _tripleShotActive = true;

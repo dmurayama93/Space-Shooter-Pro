@@ -56,6 +56,9 @@ public class PowerUp : MonoBehaviour
                     case 5:
                         player.RingActive();
                         break;
+                    case 6:
+                        player.ThrusterDebuff();
+                        break;
 
                 }
 
