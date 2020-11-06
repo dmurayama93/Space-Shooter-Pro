@@ -5,6 +5,8 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     private float _enemySpeed = 4f;
+    [SerializeField]
+    private float _speedDirection = 3f;
 
     private Player _player;
 
@@ -21,6 +23,10 @@ public class Enemy : MonoBehaviour
     private GameObject _enemyLaserPrefab;
     [SerializeField]
     private bool _enemyCD = true;
+
+    //movement
+    private int _movementRandom;
+    private int _movementDirection;
 
     //public CameraShake camerashake;
 
@@ -53,21 +59,63 @@ public class Enemy : MonoBehaviour
         }
 
         FireLaser();
-       
-        
+
+        //Gets random variable for enemy movement at instantiation
+        _movementRandom = Random.Range(0, 4);
+        _movementDirection = Random.Range(0, 2);
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(Vector3.down * _enemySpeed * Time.deltaTime);
+        /*transform.Translate(Vector3.down * _enemySpeed * Time.deltaTime);
 
         if (transform.position.y < -8f)
         {
             float randomX = Random.Range(-8f, 8f);
             transform.position = new Vector3(randomX, 8, 0);
-        }
+        }*/
+        CalculateEnemyMovement();
 
+    }
+
+    void CalculateEnemyMovement()
+    {
+        //_movementRandom = Random.Range(0, 4);
+        //_movementDirection = Random.Range(0, 2);
+
+        if (_movementRandom == 3)
+        {
+            transform.Translate(Vector3.down * _enemySpeed * Time.deltaTime);
+            MovementDirectionRoutine();
+
+            if (_movementDirection == 0)
+            {
+                //Left
+                transform.Translate(Vector3.left * _speedDirection * Time.deltaTime);
+            }
+            if(_movementDirection == 1)
+            {
+                //Right
+                transform.Translate(Vector3.right * _speedDirection * Time.deltaTime);
+            }
+        }
+        else
+        {
+            transform.Translate(Vector3.down * _enemySpeed * Time.deltaTime);
+        }
+        if (transform.position.y < -8f)
+        {
+            float randomX = Random.Range(-8f, 8f);
+            transform.position = new Vector3(randomX, 8, 0);
+            _movementRandom = Random.Range(0, 4);
+        }
+    }
+    IEnumerator MovementDirectionRoutine()
+    {
+        yield return new WaitForSeconds(2.5f);
+        _movementDirection = Random.Range(0, 2);
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -84,6 +132,7 @@ public class Enemy : MonoBehaviour
             //trigger anim
             _enemyAnimator.SetTrigger("OnEnemyDeath");
             _enemySpeed = 0;
+            _speedDirection = 0;
 
             //StartCoroutine(camerashake.Shake(0.15f, 0.4f));
 
@@ -107,6 +156,7 @@ public class Enemy : MonoBehaviour
             //trigger anim
             _enemyAnimator.SetTrigger("OnEnemyDeath");
             _enemySpeed = 0;
+            _speedDirection = 0;
 
             _audioSource.clip = _enemyExplosion;
             _audioSource.Play();
