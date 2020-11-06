@@ -1415,6 +1415,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemyPrefab: {fileID: 6188227862910273665, guid: 6811bf89c39c1b24ba1f9cda7dc7a260,
     type: 3}
+  _circleEnemyPrefab: {fileID: 4755926829966466592, guid: 7885e9e85f6238946b4ef6827b86d416,
+    type: 3}
   _enemyContainer: {fileID: 717461954}
   _tripleShotPowerUpPrefab: {fileID: 2361354608981466359, guid: e998f5aa485c27448ab7c3192288f7dc,
     type: 3}
@@ -1663,7 +1665,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 4a1b829ddc64f954682a5c77a6ff13f1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ec8183ae8aafdea47adf40690c9a6b8e, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1842,7 +1844,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 4a1b829ddc64f954682a5c77a6ff13f1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ec8183ae8aafdea47adf40690c9a6b8e, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1916,7 +1918,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 4a1b829ddc64f954682a5c77a6ff13f1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ec8183ae8aafdea47adf40690c9a6b8e, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

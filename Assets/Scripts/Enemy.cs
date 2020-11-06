@@ -21,6 +21,7 @@ public class Enemy : MonoBehaviour
 
     [SerializeField]
     private GameObject _enemyLaserPrefab;
+   
     [SerializeField]
     private bool _enemyCD = true;
 
@@ -69,22 +70,11 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /*transform.Translate(Vector3.down * _enemySpeed * Time.deltaTime);
-
-        if (transform.position.y < -8f)
-        {
-            float randomX = Random.Range(-8f, 8f);
-            transform.position = new Vector3(randomX, 8, 0);
-        }*/
         CalculateEnemyMovement();
-
     }
 
     void CalculateEnemyMovement()
     {
-        //_movementRandom = Random.Range(0, 4);
-        //_movementDirection = Random.Range(0, 2);
-
         if (_movementRandom == 3)
         {
             transform.Translate(Vector3.down * _enemySpeed * Time.deltaTime);
@@ -109,7 +99,7 @@ public class Enemy : MonoBehaviour
         {
             float randomX = Random.Range(-8f, 8f);
             transform.position = new Vector3(randomX, 8, 0);
-            _movementRandom = Random.Range(0, 4);
+            _movementRandom = Random.Range(0, 4);            
         }
     }
     IEnumerator MovementDirectionRoutine()
@@ -202,4 +192,5 @@ public class Enemy : MonoBehaviour
         yield return new WaitForSeconds(Random.Range(3.0f, 7.0f));
         _enemyCD = true;
     }
+    //how to set up different fire instantiations or do i create new script for different enemies
 }
