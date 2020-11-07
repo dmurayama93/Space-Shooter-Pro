@@ -5,13 +5,22 @@ using UnityEngine;
 public class EnemyPoison : MonoBehaviour
 {
     private Player _player;
+    private PoisonCloud _poisonCloud;
     //public PoisonCloud poisonCloud;
 
     private int _movementRandom;
     private int _movementDirection;
-    private float _enemySpeed = 3.0f;
+    private float _enemySpeed = 2.0f;
     private float _speedDirection = 3.0f;
     private float _rotationSpeed = 120.0f;
+
+    private bool _fireCD;
+    private float _cdRandom;
+
+    private bool _dead;
+
+    [SerializeField]
+    private GameObject _poisonCloudPrefab;
 
     // Start is called before the first frame update
     void Start()
@@ -26,15 +35,19 @@ public class EnemyPoison : MonoBehaviour
         //Gets random variable for enemy movement at instantiation
         _movementRandom = Random.Range(0, 4);
         _movementDirection = Random.Range(0, 2);
+
+        FirePoison();
     }
 
     // Update is called once per frame
     void Update()
     {
         CalculateMovement();
+        FirePoison();
+        //_poisonCloud.MovementParameters(_movementRandom, _movementDirection);
     }
 
-    void CalculateMovement()
+    public void CalculateMovement()
     {
         transform.Rotate(0, 0, 1 * _rotationSpeed * Time.deltaTime);
 
@@ -88,6 +101,7 @@ public class EnemyPoison : MonoBehaviour
             //audio
 
             //Destroy sequence
+            _dead = true;
             Destroy(GetComponent<Collider2D>());
             Destroy(this.gameObject, 2.8f);
         }
@@ -108,6 +122,7 @@ public class EnemyPoison : MonoBehaviour
             //audio
 
             //destroy sequence
+            _dead = true;
             Destroy(GetComponent<Collider2D>());
             Destroy(this.gameObject, 2.8f);
         }
@@ -126,6 +141,7 @@ public class EnemyPoison : MonoBehaviour
             //audio
 
             //destroy sequence
+            _dead = true;
             Destroy(GetComponent<Collider2D>());
             Destroy(this.gameObject, 2.8f);
         }
@@ -135,5 +151,19 @@ public class EnemyPoison : MonoBehaviour
     {
         // fire every 3 - 5 seconds
         //scale cloud from small to .1 - 1 over 1 sec
+        if (_fireCD == false && _dead == false)
+        {
+            Instantiate(_poisonCloudPrefab, transform.position + new Vector3(-3.78f, -0.97f, 0f), Quaternion.identity);
+            _fireCD = true;
+
+            StartCoroutine(PoisonCD());
+            //audio
+        }
+
+    }
+    IEnumerator PoisonCD()
+    {
+        yield return new WaitForSeconds(Random.Range(3.0f, 5.0f));
+        _fireCD = false;
     }
 }

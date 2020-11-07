@@ -63,9 +63,17 @@ public class UIManager : MonoBehaviour
     public void UpdateLives(int currentLives)
     {
         //is this how the uimanager knows that the game is over?
-        _livesImg.sprite = _liveSprites[currentLives];
-
-        if (currentLives < 1)
+        
+        if (currentLives > 0)
+        {
+            _livesImg.sprite = _liveSprites[currentLives];
+        }
+        if (currentLives == 0)
+        {
+            _livesImg.sprite = _liveSprites[currentLives];
+            GameOverSequence();
+        }
+        if (currentLives < 0)
         {
             currentLives = 0;
             GameOverSequence();

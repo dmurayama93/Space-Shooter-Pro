@@ -73,7 +73,7 @@ public class Enemy : MonoBehaviour
         CalculateEnemyMovement();
     }
 
-    void CalculateEnemyMovement()
+    public void CalculateEnemyMovement()
     {
         if (_movementRandom == 3)
         {
@@ -192,5 +192,4 @@ public class Enemy : MonoBehaviour
         yield return new WaitForSeconds(Random.Range(3.0f, 7.0f));
         _enemyCD = true;
     }
-    //how to set up different fire instantiations or do i create new script for different enemies
 }

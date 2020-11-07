@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2385725721415941347}
   - component: {fileID: 6320167639355553353}
   m_Layer: 0
-  m_Name: Poison_Cloud
+  m_Name: Poison_Cloud_Individual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -69,8 +69,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1464670469
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 72aec885d54267b4398a0094c1f44774, type: 3}
   m_Color: {r: 0.18991964, g: 0.7075472, b: 0.07008722, a: 1}
