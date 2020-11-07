@@ -29,6 +29,8 @@ public class SpawnManager : MonoBehaviour
 
     private float _circleEnemyCDStart;
     private float _circleEnemyCD;
+
+    private float _enemyCD;
     
 
     private bool _stopSpawning = false;
@@ -39,6 +41,7 @@ public class SpawnManager : MonoBehaviour
     void Start()
     {
         _circleEnemyCDStart = Random.Range(5.0f, 7.5f);
+        _enemyCD = Random.Range(3.0f, 5.0f);
     }
 
     public void StartSpawning()
@@ -62,7 +65,7 @@ public class SpawnManager : MonoBehaviour
             Vector3 posToSpawn = new Vector3(Random.Range(-8f, 8f), 7, 0);
             GameObject newEnemy = Instantiate(_enemyPrefab, posToSpawn, Quaternion.identity, _enemyContainer.transform);
             
-            yield return new WaitForSeconds(5f);
+            yield return new WaitForSeconds(_enemyCD);
         }
     }
     IEnumerator SpawnCircleEnemyRoutine()
@@ -84,7 +87,7 @@ public class SpawnManager : MonoBehaviour
         while (_stopSpawning == false)
         {
             _powerUpSpawnTimer = Random.Range(3.0f, 7.0f);
-            int randomPowerUp = Random.Range(0, 7);
+            int randomPowerUp = Random.Range(0, 12);
 
             Vector3 posToSpawn = new Vector3(Random.Range(-8f, 8f), 7, 0);
             Instantiate(_powerUps[randomPowerUp], posToSpawn, Quaternion.identity);
