@@ -54,4 +54,16 @@ public class Shield : MonoBehaviour
         }
 
     }
+
+    public void EnemyShieldStrength(int _enemyShieldLives)
+    {
+        if (_enemyShieldLives == 1)
+        {
+            //_spriteRendererShield.enabled = true;
+        }
+        if(_enemyShieldLives == 0)
+        {
+            //_spriteRendererShield.enabled = false;
+        }
+    }
 }

@@ -29,6 +29,13 @@ public class Enemy : MonoBehaviour
     private int _movementRandom;
     private int _movementDirection;
 
+    private bool _enemyShieldOn;
+
+    private int _shieldRandom;
+    private int _shieldStrength;
+    [SerializeField]
+    private GameObject _shieldVisualizer;
+
     //public CameraShake camerashake;
 
     // Start is called before the first frame update
@@ -65,6 +72,17 @@ public class Enemy : MonoBehaviour
         _movementRandom = Random.Range(0, 4);
         _movementDirection = Random.Range(0, 2);
 
+        _shieldRandom = Random.Range(0, 4);
+        
+        if (_shieldRandom == 1)
+        {
+            _shieldStrength = 1;
+        }
+        if (_shieldRandom != 1)
+        {
+            _enemyShieldOn = false;
+            _shieldVisualizer.SetActive(false);
+        }
     }
 
     // Update is called once per frame
@@ -114,50 +132,69 @@ public class Enemy : MonoBehaviour
         {
             Player player = other.transform.GetComponent<Player>();
 
-            //Enables program to still run if the below scripts haven't been created yet
             if (player != null)
             {
                 player.Damage();
             }
-            //trigger anim
-            _enemyAnimator.SetTrigger("OnEnemyDeath");
-            _enemySpeed = 0;
-            _speedDirection = 0;
 
-            //StartCoroutine(camerashake.Shake(0.15f, 0.4f));
+            if (_shieldStrength == 1)
+            {
+                _shieldStrength--;
+                _shieldVisualizer.SetActive(false);
+                _enemyShieldOn = false;   
+            }
+            else if (_shieldStrength == 0)
+            {
+                //trigger anim
+                _enemyAnimator.SetTrigger("OnEnemyDeath");
+                _enemySpeed = 0;
+                _speedDirection = 0;
 
-            _audioSource.clip = _enemyExplosion;
-            _audioSource.Play();
+                //StartCoroutine(camerashake.Shake(0.15f, 0.4f));
 
-            Destroy(GetComponent<Collider2D>());
-            Destroy(this.gameObject, 2.8f);
-            
-           
+                _audioSource.clip = _enemyExplosion;
+                _audioSource.Play();
+
+                Destroy(GetComponent<Collider2D>());
+                Destroy(this.gameObject, 2.8f);
+            }
+                
         }
 
         if (other.tag == "Laser")
         {           
             Destroy(other.gameObject);
-
-            if (_player != null)
+            //if shield is active, else
+            if (_shieldStrength == 1)
             {
-                _player.AddScore(10);
+                _shieldStrength--;
+                _shieldVisualizer.SetActive(false);
+                _enemyShieldOn = false;
+                //return;
             }
-            //trigger anim
-            _enemyAnimator.SetTrigger("OnEnemyDeath");
-            _enemySpeed = 0;
-            _speedDirection = 0;
+            else if (_shieldStrength == 0)
+            {
+                _shieldVisualizer.SetActive(false);
+                if (_player != null)
+                {
+                    _player.AddScore(10);
+                }
+                //trigger anim
+                _enemyAnimator.SetTrigger("OnEnemyDeath");
+                _enemySpeed = 0;
+                _speedDirection = 0;
 
-            _audioSource.clip = _enemyExplosion;
-            _audioSource.Play();
+                _audioSource.clip = _enemyExplosion;
+                _audioSource.Play();
 
-            Destroy(GetComponent<Collider2D>());
-            Destroy(this.gameObject, 2.8f);
-            
+                Destroy(GetComponent<Collider2D>());
+                Destroy(this.gameObject, 2.8f);
+            }          
         }
 
         if (other.tag == "Ring")
         {
+            _shieldVisualizer.SetActive(false);
             if(_player != null)
             {
                 _player.AddScore(10);
@@ -191,5 +228,13 @@ public class Enemy : MonoBehaviour
     {
         yield return new WaitForSeconds(Random.Range(3.0f, 7.0f));
         _enemyCD = true;
+    }
+    private void EnemyShieldActive()
+    {
+        if (_shieldRandom == 1)
+        {
+            _enemyShieldOn = true;
+            _shieldVisualizer.SetActive(true);
+        }    
     }
 }
