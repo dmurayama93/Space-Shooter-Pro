@@ -21,7 +21,7 @@ public class Enemy : MonoBehaviour
 
     [SerializeField]
     private GameObject _enemyLaserPrefab;
-   
+
     [SerializeField]
     private bool _enemyCD = true;
 
@@ -73,7 +73,7 @@ public class Enemy : MonoBehaviour
         _movementDirection = Random.Range(0, 2);
 
         _shieldRandom = Random.Range(0, 4);
-        
+
         if (_shieldRandom == 1)
         {
             _shieldStrength = 1;
@@ -89,6 +89,7 @@ public class Enemy : MonoBehaviour
     void Update()
     {
         CalculateEnemyMovement();
+        SmartEnemy();
     }
 
     public void CalculateEnemyMovement()
@@ -103,7 +104,7 @@ public class Enemy : MonoBehaviour
                 //Left
                 transform.Translate(Vector3.left * _speedDirection * Time.deltaTime);
             }
-            if(_movementDirection == 1)
+            if (_movementDirection == 1)
             {
                 //Right
                 transform.Translate(Vector3.right * _speedDirection * Time.deltaTime);
@@ -117,7 +118,7 @@ public class Enemy : MonoBehaviour
         {
             float randomX = Random.Range(-8f, 8f);
             transform.position = new Vector3(randomX, 8, 0);
-            _movementRandom = Random.Range(0, 4);            
+            _movementRandom = Random.Range(0, 4);
         }
     }
     IEnumerator MovementDirectionRoutine()
@@ -141,7 +142,7 @@ public class Enemy : MonoBehaviour
             {
                 _shieldStrength--;
                 _shieldVisualizer.SetActive(false);
-                _enemyShieldOn = false;   
+                _enemyShieldOn = false;
             }
             else if (_shieldStrength == 0)
             {
@@ -158,11 +159,11 @@ public class Enemy : MonoBehaviour
                 Destroy(GetComponent<Collider2D>());
                 Destroy(this.gameObject, 2.8f);
             }
-                
+
         }
 
         if (other.tag == "Laser")
-        {           
+        {
             Destroy(other.gameObject);
             //if shield is active, else
             if (_shieldStrength == 1)
@@ -189,13 +190,13 @@ public class Enemy : MonoBehaviour
 
                 Destroy(GetComponent<Collider2D>());
                 Destroy(this.gameObject, 2.8f);
-            }          
+            }
         }
 
         if (other.tag == "Ring")
         {
             _shieldVisualizer.SetActive(false);
-            if(_player != null)
+            if (_player != null)
             {
                 _player.AddScore(10);
             }
@@ -224,6 +225,18 @@ public class Enemy : MonoBehaviour
             StartCoroutine(EnemyCDRoutine());
         }
     }
+    private void FireLaserUp()
+    {
+        if (_enemyCD == true)
+        {
+            Instantiate(_enemyLaserPrefab, transform.position + new Vector3(0, 0.10f, 0), Quaternion.identity);
+            _audioSource.clip = _enemyLaserClip;
+            _audioSource.Play();
+
+            _enemyCD = false;
+            StartCoroutine(EnemyCDRoutine());
+        }
+    }
     IEnumerator EnemyCDRoutine()
     {
         yield return new WaitForSeconds(Random.Range(3.0f, 7.0f));
@@ -235,6 +248,23 @@ public class Enemy : MonoBehaviour
         {
             _enemyShieldOn = true;
             _shieldVisualizer.SetActive(true);
-        }    
+        }
+    }
+    private void SmartEnemy()
+    {
+        Vector3 localScale = transform.localScale;
+        //if enemy y axis <= player y axis, rotate
+        if (gameObject.transform.position.y < _player.transform.position.y)
+        {
+            localScale.y = -0.75f;
+            transform.localScale = localScale;
+            FireLaserUp();
+        }
+        if (gameObject.transform.position.y >= _player.transform.position.y)
+        {
+            localScale.y = 0.75f;
+            transform.localScale = localScale;
+            FireLaser();
+        }
     }
 }
