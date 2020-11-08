@@ -54,6 +54,8 @@ MonoBehaviour:
   _enemyLaserClip: {fileID: 8300000, guid: 75676f361bdfeaf41a46623e95df3dbc, type: 3}
   _enemyLaserPrefab: {fileID: 376101805829853960, guid: b769fc4731223334e85510b09232b55f,
     type: 3}
+  _enemyLaserPrefabUp: {fileID: 8920100811090646233, guid: e2b6b275a498a0444b691fba6224bfb6,
+    type: 3}
   _enemyCD: 1
   _shieldVisualizer: {fileID: 7163517673675990838}
 --- !u!212 &347849802758179701

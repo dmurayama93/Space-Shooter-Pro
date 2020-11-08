@@ -21,6 +21,8 @@ public class Enemy : MonoBehaviour
 
     [SerializeField]
     private GameObject _enemyLaserPrefab;
+    [SerializeField]
+    private GameObject _enemyLaserPrefabUp;
 
     [SerializeField]
     private bool _enemyCD = true;
@@ -229,7 +231,7 @@ public class Enemy : MonoBehaviour
     {
         if (_enemyCD == true)
         {
-            Instantiate(_enemyLaserPrefab, transform.position + new Vector3(0, 0.10f, 0), Quaternion.identity);
+            Instantiate(_enemyLaserPrefabUp, transform.position + new Vector3(0, 0.10f, 0), Quaternion.identity);
             _audioSource.clip = _enemyLaserClip;
             _audioSource.Play();
 
