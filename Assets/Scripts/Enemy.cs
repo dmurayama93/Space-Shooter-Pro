@@ -41,6 +41,9 @@ public class Enemy : MonoBehaviour
     private float boolTolerance = 1.0f;
 
     private bool _enemyDead;
+    private bool _powerUpDead;
+
+    private GameObject _powerUpObject;
 
     //public CameraShake camerashake;
 
@@ -71,6 +74,8 @@ public class Enemy : MonoBehaviour
         {
             _audioSource.clip = _enemyLaserClip;
         }
+
+        _powerUpObject = GameObject.FindWithTag("PowerUp");
 
         FireLaser();
 
@@ -284,13 +289,17 @@ public class Enemy : MonoBehaviour
     private void KillPowerUp()
     {
         float _enemyPosX = Mathf.Round(gameObject.transform.position.x * 100) / 100;
-        float _playerPosX = Mathf.Round(_player.transform.position.x * 100) / 100;
+        
+        if (_powerUpObject != null)
+        {
+            float _powerUpPosX = Mathf.Round(_powerUpObject.transform.position.x * 100) / 100;
 
-        if (_enemyPosX <= _playerPosX + boolTolerance && _enemyPosX >= _playerPosX - boolTolerance)
-        { 
-            //how to create a greater range than exact x coordinates
-            Debug.Log("Shoot PowerUp" + _enemyPosX + " " + _playerPosX);
-            FireLaser();
+
+            if (_enemyPosX <= _powerUpPosX + boolTolerance && _enemyPosX >= _powerUpPosX - boolTolerance)
+            {              
+                //Debug.Log("Shoot PowerUp " + _enemyPosX + " " + _powerUpPosX);
+                FireLaser();
+            }
         }
     }
     /*private void DodgeBullet()

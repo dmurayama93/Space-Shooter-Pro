@@ -61,9 +61,13 @@ public class PowerUp : MonoBehaviour
                         break;
 
                 }
-
+                Destroy(this.gameObject);
             }
+        }
 
+        if (other.tag == "EnemyLaser")
+        {
+            //Debug.Log("PowerUp Hit by Enemy Laser");
             Destroy(this.gameObject);
         }
     }
