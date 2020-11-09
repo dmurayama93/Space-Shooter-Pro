@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    private float _enemySpeed = 4f;
+    private float _enemySpeed = 3f;
     [SerializeField]
     private float _speedDirection = 3f;
 
@@ -102,6 +102,7 @@ public class Enemy : MonoBehaviour
         CalculateEnemyMovement();
         SmartEnemy();
         KillPowerUp();
+        AggressiveEnemy();
     }
 
     public void CalculateEnemyMovement()
@@ -301,6 +302,23 @@ public class Enemy : MonoBehaviour
                 FireLaser();
             }
         }
+    }
+
+    private void AggressiveEnemy()
+    {
+        float _distance = Vector3.Distance(gameObject.transform.position, _player.transform.position);
+
+        if (_distance <= 5.0f)
+        {
+            _enemySpeed = 5.0f;
+            //Debug.Log(_distance + " " + _enemySpeed);
+        }
+        else if (_distance > 5.0f)
+        {
+            _enemySpeed = 3.0f;
+            //Debug.Log(_enemySpeed + " No Charge");
+        }
+        
     }
     /*private void DodgeBullet()
     { 
