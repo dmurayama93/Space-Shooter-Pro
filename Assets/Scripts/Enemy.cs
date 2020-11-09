@@ -38,6 +38,10 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private GameObject _shieldVisualizer;
 
+    private float boolTolerance = 1.0f;
+
+    private bool _enemyDead;
+
     //public CameraShake camerashake;
 
     // Start is called before the first frame update
@@ -92,6 +96,7 @@ public class Enemy : MonoBehaviour
     {
         CalculateEnemyMovement();
         SmartEnemy();
+        KillPowerUp();
     }
 
     public void CalculateEnemyMovement()
@@ -158,6 +163,7 @@ public class Enemy : MonoBehaviour
                 _audioSource.clip = _enemyExplosion;
                 _audioSource.Play();
 
+                _enemyDead = true;
                 Destroy(GetComponent<Collider2D>());
                 Destroy(this.gameObject, 2.8f);
             }
@@ -190,6 +196,7 @@ public class Enemy : MonoBehaviour
                 _audioSource.clip = _enemyExplosion;
                 _audioSource.Play();
 
+                _enemyDead = true;
                 Destroy(GetComponent<Collider2D>());
                 Destroy(this.gameObject, 2.8f);
             }
@@ -209,6 +216,7 @@ public class Enemy : MonoBehaviour
             _audioSource.clip = _enemyExplosion;
             _audioSource.Play();
 
+            _enemyDead = true;
             Destroy(GetComponent<Collider2D>());
             Destroy(this.gameObject, 2.8f);
         }
@@ -217,7 +225,7 @@ public class Enemy : MonoBehaviour
     private void FireLaser()
     {
         //add enemy fire every 3-7 seconds
-        if (_enemyCD == true)
+        if (_enemyCD == true && _enemyDead == false)
         {
             Instantiate(_enemyLaserPrefab, transform.position + new Vector3(0, -0.10f, 0), Quaternion.identity);
             _audioSource.clip = _enemyLaserClip;
@@ -229,7 +237,7 @@ public class Enemy : MonoBehaviour
     }
     private void FireLaserUp()
     {
-        if (_enemyCD == true)
+        if (_enemyCD == true && _enemyDead == false)
         {
             Instantiate(_enemyLaserPrefabUp, transform.position + new Vector3(0, 0.10f, 0), Quaternion.identity);
             _audioSource.clip = _enemyLaserClip;
@@ -256,17 +264,37 @@ public class Enemy : MonoBehaviour
     {
         Vector3 localScale = transform.localScale;
         //if enemy y axis <= player y axis, rotate
-        if (gameObject.transform.position.y < _player.transform.position.y)
+        if (gameObject.transform.position.y < _player.transform.position.y && _player != null && _enemyDead == false)
         {
             localScale.y = -0.75f;
             transform.localScale = localScale;
             FireLaserUp();
         }
-        if (gameObject.transform.position.y >= _player.transform.position.y)
+        if (gameObject.transform.position.y >= _player.transform.position.y && _player != null & _enemyDead == false)
         {
             localScale.y = 0.75f;
             transform.localScale = localScale;
             FireLaser();
         }
+        else if (_player == null)
+        {
+            return;
+        }
     }
+    private void KillPowerUp()
+    {
+        float _enemyPosX = Mathf.Round(gameObject.transform.position.x * 100) / 100;
+        float _playerPosX = Mathf.Round(_player.transform.position.x * 100) / 100;
+
+        if (_enemyPosX <= _playerPosX + boolTolerance && _enemyPosX >= _playerPosX - boolTolerance)
+        { 
+            //how to create a greater range than exact x coordinates
+            Debug.Log("Shoot PowerUp" + _enemyPosX + " " + _playerPosX);
+            FireLaser();
+        }
+    }
+    /*private void DodgeBullet()
+    { 
+
+    }*/
 }
