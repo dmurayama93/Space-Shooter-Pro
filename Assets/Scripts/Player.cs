@@ -82,6 +82,8 @@ public class Player : MonoBehaviour
 
     public RingShot _ringShot;
 
+    private GameObject _powerUp;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -153,6 +155,8 @@ public class Player : MonoBehaviour
         {
             _currentBoost = _maxBoost;
         }
+
+        PickupCollect();
 
     }   
    void CalculateMovement()
@@ -408,10 +412,21 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void AmmoCount()
+    private void PickupCollect()
     {
-        //max ammo is 15 shots
-        //if actual ammo = 0, reload
+        if (Input.GetKey(KeyCode.C))
+        {
+            _powerUp = GameObject.FindWithTag("PowerUp");
+            if (_powerUp != null)
+            {
+                float _powerUpDist = Vector3.Distance(gameObject.transform.position, _powerUp.transform.position);
 
+                if (_powerUpDist <= 5.0f)
+                {
+                    Debug.Log("PowerUp Drag to Player " + _powerUpDist);
+                    _powerUp.transform.position = Vector3.MoveTowards(_powerUp.transform.position, gameObject.transform.position, 5f * Time.deltaTime);
+                }
+            }
+        }
     }
 }

@@ -44,6 +44,9 @@ public class Enemy : MonoBehaviour
     private bool _powerUpDead;
 
     private GameObject _powerUpObject;
+    private GameObject _laser;
+
+    private float _distanceLaser;
 
     //public CameraShake camerashake;
 
@@ -51,6 +54,8 @@ public class Enemy : MonoBehaviour
     void Start()
     {
         _player = GameObject.Find("Player").GetComponent<Player>();
+        _powerUpObject = GameObject.FindWithTag("PowerUp");
+        
         _audioSource = GetComponent<AudioSource>();
 
         if (_player == null)
@@ -75,7 +80,10 @@ public class Enemy : MonoBehaviour
             _audioSource.clip = _enemyLaserClip;
         }
 
-        _powerUpObject = GameObject.FindWithTag("PowerUp");
+        if (_laser == null)
+        {
+            Debug.Log("No Laser");
+        }
 
         FireLaser();
 
@@ -103,6 +111,7 @@ public class Enemy : MonoBehaviour
         SmartEnemy();
         KillPowerUp();
         AggressiveEnemy();
+        DodgeShot();
     }
 
     public void CalculateEnemyMovement()
@@ -320,8 +329,22 @@ public class Enemy : MonoBehaviour
         }
         
     }
-    /*private void DodgeBullet()
-    { 
+    private void DodgeShot()
+    {
+        _laser = GameObject.FindWithTag("Laser");
 
-    }*/
+        if (_laser != null)
+        {
+            float _distanceLaser = Vector3.Distance(gameObject.transform.position, _laser.transform.position);
+            //Debug.Log("Laser Active " + _distanceLaser);
+            if (_distanceLaser <= 3.0f)
+            {
+                //move left or right
+                //_movementRandom = 3;
+                //Debug.Log("Dodge " + _movementRandom);
+                transform.position = Vector3.MoveTowards(transform.position, _laser.transform.position, -1 * 3f * Time.deltaTime);
+            }
+        }
+    }
+
 }
