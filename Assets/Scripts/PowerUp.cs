@@ -59,6 +59,9 @@ public class PowerUp : MonoBehaviour
                     case 6:
                         player.ThrusterDebuff();
                         break;
+                    case 7:
+                        player.HomingMissileActive();
+                        break;
 
                 }
                 Destroy(this.gameObject);

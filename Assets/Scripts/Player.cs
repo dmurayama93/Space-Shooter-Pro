@@ -18,7 +18,8 @@ public class Player : MonoBehaviour
 
     [SerializeField]
     private GameObject _laserPrefab;
-
+    [SerializeField]
+    private GameObject _homingMissilePrefab;
     [SerializeField]
     private GameObject _tripleShotPrefab;
     [SerializeField]
@@ -31,6 +32,7 @@ public class Player : MonoBehaviour
     private int _playerLife = 3;
     private SpawnManager _spawnManager;
 
+    private bool _homingMissileActive;
     private bool _tripleShotActive;
     [SerializeField]
     private bool _ringActive;
@@ -157,6 +159,7 @@ public class Player : MonoBehaviour
         }
 
         PickupCollect();
+        HomingMissileFire();
 
     }   
    void CalculateMovement()
@@ -427,6 +430,18 @@ public class Player : MonoBehaviour
                     _powerUp.transform.position = Vector3.MoveTowards(_powerUp.transform.position, gameObject.transform.position, 5f * Time.deltaTime);
                 }
             }
+        }
+    }
+    public void HomingMissileActive()
+    {
+        _homingMissileActive = true;
+    }
+    public void HomingMissileFire()
+    {
+        if (Input.GetKeyDown(KeyCode.E) && _homingMissileActive == true)
+        {
+            Instantiate(_homingMissilePrefab, transform.position, Quaternion.identity);
+            _homingMissileActive = false;
         }
     }
 }

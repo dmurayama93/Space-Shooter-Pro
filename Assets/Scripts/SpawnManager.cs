@@ -25,6 +25,8 @@ public class SpawnManager : MonoBehaviour
     [SerializeField]
     private GameObject _thrustDebuffPrefab;
     [SerializeField]
+    private GameObject _homingMissilePrefab;
+    [SerializeField]
     private GameObject[] _powerUps;
 
     private float _circleEnemyCDStart;
@@ -87,7 +89,7 @@ public class SpawnManager : MonoBehaviour
         while (_stopSpawning == false)
         {
             _powerUpSpawnTimer = Random.Range(3.0f, 7.0f);
-            int randomPowerUp = Random.Range(0, 12);
+            int randomPowerUp = Random.Range(0, 14);
 
             Vector3 posToSpawn = new Vector3(Random.Range(-8f, 8f), 7, 0);
             Instantiate(_powerUps[randomPowerUp], posToSpawn, Quaternion.identity);
