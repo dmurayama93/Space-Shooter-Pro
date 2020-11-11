@@ -18,21 +18,37 @@ public class HomingMissile : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Set Speed
-        //Define function
-        //Reference enemy tags so missile knows who to lock on to.
-        _enemy = GameObject.FindWithTag("Enemy");
+        _enemy = FindClosestEnemy();
 
         transform.Translate(Vector3.up * _speed * Time.deltaTime);
 
         if (_enemy != null)
         {
-            float _homingDistance = Vector3.Distance(gameObject.transform.position, _enemy.transform.position);
-
-            if (_homingDistance <= 8.0f)
-            {
                 transform.position = Vector3.MoveTowards(gameObject.transform.position, _enemy.transform.position, 8.0f * Time.deltaTime);
+        }
+
+        FindClosestEnemy();
+    }
+
+    public GameObject FindClosestEnemy()
+    {
+        GameObject[] enemies;
+        enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        GameObject closest = null;
+        float distance = Mathf.Infinity;
+        Vector3 position = transform.position;
+
+        foreach (GameObject enemy in enemies)
+        {
+            Vector3 diff = enemy.transform.position - position;
+            float curDistance = diff.sqrMagnitude;
+
+            if (curDistance < distance)
+            {
+                closest = enemy;
+                distance = curDistance;
             }
         }
+        return closest;
     }
 }
