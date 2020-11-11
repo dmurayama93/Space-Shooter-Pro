@@ -241,3 +241,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _randDirection: 0
+  _laserOnePrefab: {fileID: 1302439278975489522, guid: f54ef858faf507543a47b9e97cc8ae8a,
+    type: 3}
+  _laserTwoPrefab: {fileID: 2579144735159503849, guid: 5aeef0ae6684d9f4db76695d9894c978,
+    type: 3}
