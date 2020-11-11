@@ -18,11 +18,9 @@ public class Boss : MonoBehaviour
     //standard laser, big beam, charge
     //laser, ammo of 10 shots each side and then 3 secs reload
     [SerializeField]
-    private GameObject _laserOnePrefab;
-    [SerializeField]
-    private GameObject _laserTwoPrefab;
+    private GameObject _bossLaserPrefab;
 
-    private bool _fireCD;
+    private bool _fireCD = true;
     private int _ammo;
     private int _ammoMax = 20;
 
@@ -121,17 +119,16 @@ public class Boss : MonoBehaviour
         _changeDirection = true;
     }
 
+    //Attacks
     private void NormalLaser()
     {
         //create fire rate cd
         if (_fireCD == true && _ammo > 0)
         {
-            Instantiate(_laserOnePrefab, transform.position, Quaternion.identity);
+            Instantiate(_bossLaserPrefab, transform.position + new Vector3(0, 0, 0), Quaternion.identity);
             _ammo--;
             Debug.Log(_ammo + "Boss");
-            Instantiate(_laserTwoPrefab, transform.position, Quaternion.identity);
-            _ammo--;
-            Debug.Log(_ammo + "Boss");
+            _fireCD = false;
             StartCoroutine(NormalLaserFireRate());
         }
         if (_ammo <= 0)
@@ -144,6 +141,7 @@ public class Boss : MonoBehaviour
     {
         yield return new WaitForSeconds(3.5f);
         _ammo = _ammoMax;
+        _fireCD = true;
     }
     IEnumerator NormalLaserFireRate()
     {
