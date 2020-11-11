@@ -27,7 +27,7 @@ public class Player : MonoBehaviour
 
     private float _fireRate = 0.15f;
     private float _fireCD = -1f;
-    
+
     [SerializeField]
     private int _playerLife = 3;
     private SpawnManager _spawnManager;
@@ -149,7 +149,7 @@ public class Player : MonoBehaviour
         }
         if (_ringActive == true)
         {
-             Instantiate(_ringPrefab, transform.position, Quaternion.identity);
+            Instantiate(_ringPrefab, transform.position, Quaternion.identity);
             _ringActive = false;
         }
 
@@ -161,8 +161,8 @@ public class Player : MonoBehaviour
         PickupCollect();
         HomingMissileFire();
 
-    }   
-   void CalculateMovement()
+    }
+    void CalculateMovement()
     {
         //Input in the quotations must match the axis in Unity > Edit > Project Settings > Axis
         float horizontalInput = Input.GetAxis("Horizontal");
@@ -174,14 +174,14 @@ public class Player : MonoBehaviour
         if (Input.GetKey("left shift") && _currentBoost > 0 && _thrusterDebuff == false)
         {
             _speed = 10;
-            _currentBoost-=1.5f;
-            
+            _currentBoost -= 1.5f;
+
             thruster.SetValue(_currentBoost);
             transform.Translate(direction * _speed * Time.deltaTime);
         }
         else
         {
-            _speed = 5;        
+            _speed = 5;
             transform.Translate(direction * _speed * Time.deltaTime);
             if (_currentBoost <= 0)
             {
@@ -194,7 +194,7 @@ public class Player : MonoBehaviour
                 thruster.SetValue(_currentBoost);
             }
         }
-        
+
 
         float _maxX = 9f;
         float _minX = -9f;
@@ -202,7 +202,7 @@ public class Player : MonoBehaviour
         float _minY = -4f;
 
         //X Max Boundary
-        if(transform.position.x >= _maxX)
+        if (transform.position.x >= _maxX)
         {
             transform.position = new Vector3(_maxX, transform.position.y, 0);
         }
@@ -224,7 +224,7 @@ public class Player : MonoBehaviour
         {
             transform.position = new Vector3(transform.position.x, _minY, 0);
         }
-        
+
     }
 
     IEnumerator ThrusterDelay()
@@ -237,7 +237,7 @@ public class Player : MonoBehaviour
     void FireLaser()
     {
         _fireCD = Time.time + _fireRate;
-        
+
         if (_tripleShotActive == true)
         {
             Instantiate(_tripleShotPrefab, transform.position, Quaternion.identity);
@@ -282,7 +282,7 @@ public class Player : MonoBehaviour
         }
 
         _uiManager.UpdateLives(_playerLife);
-        
+
         if (_playerLife < 1)
         {
             //communicate with spawn manager when player is dead

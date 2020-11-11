@@ -6,13 +6,15 @@ public class HomingMissile : MonoBehaviour
 {
     [SerializeField]
     private float _speed = 8.0f;
+    private float _maxTime = 1.5f;
+    private float _time;
 
     private GameObject _enemy;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -24,10 +26,11 @@ public class HomingMissile : MonoBehaviour
 
         if (_enemy != null)
         {
-                transform.position = Vector3.MoveTowards(gameObject.transform.position, _enemy.transform.position, 8.0f * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(gameObject.transform.position, _enemy.transform.position, 8.0f * Time.deltaTime);
         }
 
         FindClosestEnemy();
+        StartCoroutine(SelfDestructRoutine());
     }
 
     public GameObject FindClosestEnemy()
@@ -50,5 +53,10 @@ public class HomingMissile : MonoBehaviour
             }
         }
         return closest;
+    }
+    IEnumerator SelfDestructRoutine()
+    {
+        yield return new WaitForSeconds(1.5f);
+        Destroy(this.gameObject);
     }
 }
