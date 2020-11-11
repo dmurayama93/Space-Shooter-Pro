@@ -29,7 +29,7 @@ public class HomingMissile : MonoBehaviour
         {
             float _homingDistance = Vector3.Distance(gameObject.transform.position, _enemy.transform.position);
 
-            if (_homingDistance <= 5.0f)
+            if (_homingDistance <= 8.0f)
             {
                 transform.position = Vector3.MoveTowards(gameObject.transform.position, _enemy.transform.position, 8.0f * Time.deltaTime);
             }
