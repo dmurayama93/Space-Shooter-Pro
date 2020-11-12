@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Boss : MonoBehaviour
 {
-    //movement, random
+    //movement attributes including charge
     [SerializeField]
     private int _randDirection;
     private float _speedDirection = 4.0f;
@@ -15,21 +15,34 @@ public class Boss : MonoBehaviour
     private bool _changeDirection = true;
     private bool _startChargeCD = true;
 
-    //standard laser, big beam, charge
-    //laser, ammo of 10 shots each side and then 3 secs reload
+    //boss prefabs
     [SerializeField]
     private GameObject _bossLaserPrefab;
+    [SerializeField]
+    private GameObject _bossBeamPrefab;
 
+    //laser attributes
     private bool _fireCD = true;
     private int _ammo;
-    private int _ammoMax = 20;
+    private int _ammoMax = 10;
     private bool _reloading = true;
 
+    //beam attributes
+    private bool _bigBeamCD = true;
+    private bool _reloadingBigBeam = true;
+    private int _beamEnergy = 100;
+    private bool _energyDown = true;
+
+    //private BossBeam _bossBeam;
+    //private GameObject BossBeam;
 
     //hp make bar displaying hp as well
+
     // Start is called before the first frame update
     void Start()
     {
+        //_bossBeam = BossBeam.GetComponent<BossBeam>();
+
         StartCoroutine(ChargeCDRoutine());
         _randDirection = Random.Range(1, 3);
         _ammo = _ammoMax;
@@ -47,6 +60,7 @@ public class Boss : MonoBehaviour
             StartCoroutine(MovementRoutine());
         }
         NormalLaser();
+        BigBeam();
     }
     private void BossCharge()
     {
@@ -128,7 +142,7 @@ public class Boss : MonoBehaviour
         {
             Instantiate(_bossLaserPrefab, transform.position + new Vector3(0, 0, 0), Quaternion.identity);
             _ammo--;
-            Debug.Log(_ammo + "Boss");
+            //Debug.Log(_ammo + "Boss");
             _fireCD = false;
             if (_fireCD == false)
             {
@@ -154,8 +168,46 @@ public class Boss : MonoBehaviour
     }
     IEnumerator NormalLaserFireRate()
     {
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSeconds(0.5f);
         _fireCD = true;
     }
-
+    private void BigBeam()
+    {
+        if (_bigBeamCD == true && _beamEnergy > 0)
+        {
+            //Set active instead of instantiate like shield
+            _bossBeamPrefab.SetActive(true);
+            //_bossBeam.BeamActive(true);
+            if (_energyDown == true)
+            {
+                StartCoroutine(BigBeamEnergy());
+                _energyDown = false;
+            }
+            Debug.Log(_beamEnergy);
+        }
+       
+        if (_beamEnergy <= 0)
+        {
+            _bossBeamPrefab.SetActive(false);
+            //_bossBeam.BeamActive(false);
+            if (_reloadingBigBeam == true)
+            {
+                StartCoroutine(BigBeamCDRoutine());
+                _reloadingBigBeam = false;
+            }          
+        }
+    }
+    IEnumerator BigBeamEnergy()
+    {
+        yield return new WaitForSeconds(0.25f);
+        _beamEnergy -= 5;
+        _energyDown = true;
+    }
+    IEnumerator BigBeamCDRoutine()
+    {
+        yield return new WaitForSeconds(15f);
+        _bigBeamCD = true;
+        _beamEnergy = 100;
+        _reloadingBigBeam = true;
+    }
 }
