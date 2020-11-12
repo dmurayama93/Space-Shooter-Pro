@@ -23,6 +23,7 @@ public class Boss : MonoBehaviour
     private bool _fireCD = true;
     private int _ammo;
     private int _ammoMax = 20;
+    private bool _reloading = true;
 
 
     //hp make bar displaying hp as well
@@ -129,12 +130,19 @@ public class Boss : MonoBehaviour
             _ammo--;
             Debug.Log(_ammo + "Boss");
             _fireCD = false;
-            StartCoroutine(NormalLaserFireRate());
+            if (_fireCD == false)
+            {
+                StartCoroutine(NormalLaserFireRate());
+            }
         }
         if (_ammo <= 0)
         {
             _fireCD = false;
-            StartCoroutine(NormalLaserReloadRoutine());
+            if (_reloading == true)
+            {
+                StartCoroutine(NormalLaserReloadRoutine());
+                _reloading = false;
+            }          
         }
     }
     IEnumerator NormalLaserReloadRoutine()
@@ -142,6 +150,7 @@ public class Boss : MonoBehaviour
         yield return new WaitForSeconds(3.5f);
         _ammo = _ammoMax;
         _fireCD = true;
+        _reloading = true;
     }
     IEnumerator NormalLaserFireRate()
     {
