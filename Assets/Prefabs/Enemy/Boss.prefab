@@ -278,6 +278,8 @@ MonoBehaviour:
   _bossLaserPrefab: {fileID: 5394230250490094128, guid: 2c895cb7a1c150347ab6ac433fdd3ae2,
     type: 3}
   _bossBeamPrefab: {fileID: 1700028044099847699}
+  _explosionPrefab: {fileID: 5699372581738369373, guid: be9ad11bd7eae6a4fa4b3a4e02b67ae2,
+    type: 3}
 --- !u!95 &2605361945713428416
 Animator:
   serializedVersion: 3

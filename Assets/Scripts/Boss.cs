@@ -38,13 +38,15 @@ public class Boss : MonoBehaviour
     //hp
     private int _maxHealth = 5;
     private int _currHealth;
+    private bool _bossDead = true;
 
     SpriteRenderer _spriteRendererBoss;
-    Color tempColor;
     private bool _damageFlash;
 
-    Animator _bossAnimator;
+    private bool _stopMove;
 
+    [SerializeField]
+    private GameObject _explosionPrefab;
     //hit detection for player and boss
 
     // Start is called before the first frame update
@@ -70,11 +72,11 @@ public class Boss : MonoBehaviour
         }
         NormalLaser();
         BigBeam();
-        BossHp();
+        BossDestroy();
     }
     private void BossCharge()
     {
-        if (_chargeCD == false)
+        if (_chargeCD == false && _stopMove == false)
         {
             _speedDirection = 0.0f;
             transform.Translate(Vector3.down * _enemyChargeSpeed * Time.deltaTime);
@@ -95,39 +97,47 @@ public class Boss : MonoBehaviour
     {
         //set initial x pos to 0 in start, y pos to  8f
         transform.position = new Vector3(transform.position.x, transform.position.y, 0);
-
-        if (transform.position.y > 5.1f)
+        if (_stopMove == false)
         {
-            _speedDirection = 0.0f;
-            transform.Translate(Vector3.down * 2f * Time.deltaTime);
-            _chargeCD = true;
+            if (transform.position.y > 5.1f)
+            {
+                _speedDirection = 0.0f;
+                transform.Translate(Vector3.down * 2f * Time.deltaTime);
+                _chargeCD = true;
+            }
+            else if (transform.position.y <= 5.1f && _chargeCD == true)
+            {
+                _speedDirection = 4.0f;
+                CalculateMovement();
+            }
         }
-        else if (transform.position.y <= 5.1f && _chargeCD == true)
-        {
-            _speedDirection = 4.0f;
-            CalculateMovement();
-        }
-
     }
     private void CalculateMovement()
     {
-        if (_randDirection == 1)
+        if (_stopMove == false)
         {
-            // move left
-            transform.Translate(Vector3.left * _speedDirection * Time.deltaTime);
+            if (_randDirection == 1)
+            {
+                // move left
+                transform.Translate(Vector3.left * _speedDirection * Time.deltaTime);
+            }
+            if (_randDirection == 2)
+            {
+                //move right
+                transform.Translate(Vector3.right * _speedDirection * Time.deltaTime);
+            }
+            if (transform.position.x < -12f)
+            {
+                transform.position = new Vector3(12f, transform.position.y, 0);
+            }
+            if (transform.position.x > 12f)
+            {
+                transform.position = new Vector3(-12f, transform.position.y, 0);
+            }
         }
-        if (_randDirection == 2)
+        else if (_stopMove == true)
         {
-            //move right
-            transform.Translate(Vector3.right * _speedDirection * Time.deltaTime);
-        }
-        if (transform.position.x < -12f)
-        {
-            transform.position = new Vector3(12f, transform.position.y, 0);
-        }
-        if (transform.position.x > 12f)
-        {
-            transform.position = new Vector3(-12f, transform.position.y, 0);
+            _speedDirection = 0f;
         }
     }
     IEnumerator ChargeCDRoutine()
@@ -253,16 +263,17 @@ public class Boss : MonoBehaviour
         }
     }
 
-    private void BossHp()
+    private void BossDestroy()
     {
-        if (_currHealth <= 0)
+        if (_currHealth <= 0 && _bossDead == true)
         {
-            _speedDirection = 0;
-            _enemyChargeSpeed = 0;
+            _stopMove = true;
 
-            _bossAnimator.SetTrigger("OnBossDeath");
+            Instantiate(_explosionPrefab, transform.position, Quaternion.identity);
             Destroy(GetComponent<Collider2D>());
             Destroy(this.gameObject, 3f);
+
+            _bossDead = false;
         }
     }
     private void BossDamageFlash()
