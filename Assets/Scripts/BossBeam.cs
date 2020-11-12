@@ -6,6 +6,7 @@ public class BossBeam : MonoBehaviour
 {
     private float _maxY = 2.5f;
     Vector3 temp;
+    [SerializeField]
     private bool _beamActive;
 
     // Start is called before the first frame update
@@ -38,7 +39,7 @@ public class BossBeam : MonoBehaviour
             }
         }
     }
-    private void BeamResetScale()
+    public void BeamResetScale()
     {
         if (_beamActive == false)
         {

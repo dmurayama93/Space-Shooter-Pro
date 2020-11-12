@@ -36,12 +36,14 @@ public class Boss : MonoBehaviour
     private BossBeam _bossBeam;
 
     //hp
-    private int _maxHealth = 100;
+    private int _maxHealth = 5;
     private int _currHealth;
 
     SpriteRenderer _spriteRendererBoss;
     Color tempColor;
     private bool _damageFlash;
+
+    Animator _bossAnimator;
 
     //hit detection for player and boss
 
@@ -197,10 +199,12 @@ public class Boss : MonoBehaviour
         if (_beamEnergy <= 0)
         {
             _bossBeamPrefab.SetActive(false);
+            
             if (_reloadingBigBeam == true)
             {
                 StartCoroutine(BigBeamCDRoutine());
                 _bossBeam.BeamActive(false);
+                _bossBeam.BeamResetScale();
                 _reloadingBigBeam = false;
             }          
         }
@@ -231,18 +235,21 @@ public class Boss : MonoBehaviour
         {
             _currHealth--;
             Debug.Log(_currHealth + " " + other.tag);
+            BossDamageFlash();
         }
         if (other.tag == "HomingMissile")
         {
             _currHealth -= 10;
             Debug.Log(_currHealth + " " + other.tag);
             Destroy(other.gameObject);
+            BossDamageFlash();
         }
         if (other.tag == "RingShot")
         {
             _currHealth -= 20;
             Debug.Log(_currHealth + " " + other.tag);
             Destroy(other.gameObject);
+            BossDamageFlash();
         }
     }
 
@@ -250,7 +257,12 @@ public class Boss : MonoBehaviour
     {
         if (_currHealth <= 0)
         {
-            Destroy(this.gameObject);
+            _speedDirection = 0;
+            _enemyChargeSpeed = 0;
+
+            _bossAnimator.SetTrigger("OnBossDeath");
+            Destroy(GetComponent<Collider2D>());
+            Destroy(this.gameObject, 3f);
         }
     }
     private void BossDamageFlash()

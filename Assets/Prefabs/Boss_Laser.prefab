@@ -82,6 +82,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Laser_Two
       objectReference: {fileID: 0}
+    - target: {fileID: 3880155431591049666, guid: 5aeef0ae6684d9f4db76695d9894c978,
+        type: 3}
+      propertyPath: m_SortingLayerID
+      value: 1464670469
+      objectReference: {fileID: 0}
+    - target: {fileID: 3880155431591049666, guid: 5aeef0ae6684d9f4db76695d9894c978,
+        type: 3}
+      propertyPath: m_SortingLayer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8182866596934450714, guid: 5aeef0ae6684d9f4db76695d9894c978,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -217,6 +227,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Laser_One
+      objectReference: {fileID: 0}
+    - target: {fileID: 3568406467271226062, guid: f54ef858faf507543a47b9e97cc8ae8a,
+        type: 3}
+      propertyPath: m_SortingLayerID
+      value: 1464670469
+      objectReference: {fileID: 0}
+    - target: {fileID: 3568406467271226062, guid: f54ef858faf507543a47b9e97cc8ae8a,
+        type: 3}
+      propertyPath: m_SortingLayer
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f54ef858faf507543a47b9e97cc8ae8a, type: 3}
