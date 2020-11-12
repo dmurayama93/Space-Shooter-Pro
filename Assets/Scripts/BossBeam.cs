@@ -4,32 +4,59 @@ using UnityEngine;
 
 public class BossBeam : MonoBehaviour
 {
-    SpriteRenderer _spriteRendererBeam;
-    //scale laser so it doesnt just pop up
-    //fix position
-    // y 2.7f
+    private float _maxY = 2.7f;
+    Vector3 temp;
+    private bool _beamActive;
 
     // Start is called before the first frame update
     void Start()
     {
-        _spriteRendererBeam = GetComponent<SpriteRenderer>();
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        BeamScaleUp();
+        BeamResetScale();
     }
-
-    public void BeamActive(bool _beamActive)
+    private void BeamScaleUp()
     {
         if (_beamActive == true)
         {
-            _spriteRendererBeam.enabled = true;
+            Debug.Log("Sequence true");
+            if (temp.y <= _maxY)
+            {
+                temp = transform.localScale;
+                temp.y += Time.deltaTime * 1f;
+                transform.localScale = temp;
+            }
+            if (temp.y > _maxY)
+            {
+                temp.y = _maxY;
+                transform.localScale = temp;
+            }
         }
+    }
+    private void BeamResetScale()
+    {
         if (_beamActive == false)
         {
-            _spriteRendererBeam.enabled = false;
+            temp.y = .1f;
+            transform.localScale = temp;
+            Debug.Log("Resetting Scale " + temp.y);
+        }
+    }
+    //create method to be called in boss script that sets temp back to default when disabled
+    public void BeamActive(bool _active)
+    {
+        if (_active == true)
+        {
+            _beamActive = true;
+        }
+        if (_active == false)
+        {
+            _beamActive = false;
         }
     }
 }

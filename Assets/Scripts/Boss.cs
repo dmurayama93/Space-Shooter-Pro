@@ -33,16 +33,13 @@ public class Boss : MonoBehaviour
     private int _beamEnergy = 100;
     private bool _energyDown = true;
 
-    //private BossBeam _bossBeam;
-    //private GameObject BossBeam;
+    private BossBeam _bossBeam;
 
     //hp make bar displaying hp as well
 
     // Start is called before the first frame update
     void Start()
     {
-        //_bossBeam = BossBeam.GetComponent<BossBeam>();
-
         StartCoroutine(ChargeCDRoutine());
         _randDirection = Random.Range(1, 3);
         _ammo = _ammoMax;
@@ -173,11 +170,11 @@ public class Boss : MonoBehaviour
     }
     private void BigBeam()
     {
+        _bossBeam = _bossBeamPrefab.GetComponent<BossBeam>();
         if (_bigBeamCD == true && _beamEnergy > 0)
         {
-            //Set active instead of instantiate like shield
             _bossBeamPrefab.SetActive(true);
-            //_bossBeam.BeamActive(true);
+            _bossBeam.BeamActive(true);
             if (_energyDown == true)
             {
                 StartCoroutine(BigBeamEnergy());
@@ -189,10 +186,11 @@ public class Boss : MonoBehaviour
         if (_beamEnergy <= 0)
         {
             _bossBeamPrefab.SetActive(false);
-            //_bossBeam.BeamActive(false);
+            
             if (_reloadingBigBeam == true)
             {
                 StartCoroutine(BigBeamCDRoutine());
+                _bossBeam.BeamActive(false);
                 _reloadingBigBeam = false;
             }          
         }
