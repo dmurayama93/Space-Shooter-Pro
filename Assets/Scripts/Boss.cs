@@ -39,6 +39,10 @@ public class Boss : MonoBehaviour
     private int _maxHealth = 100;
     private int _currHealth;
 
+    SpriteRenderer _spriteRendererBoss;
+    Color tempColor;
+    private bool _damageFlash;
+
     //hit detection for player and boss
 
     // Start is called before the first frame update
@@ -49,6 +53,7 @@ public class Boss : MonoBehaviour
         _ammo = _ammoMax;
         transform.position = new Vector3(0f, 8f, 0f);
         _currHealth = _maxHealth;
+        _spriteRendererBoss = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -192,7 +197,6 @@ public class Boss : MonoBehaviour
         if (_beamEnergy <= 0)
         {
             _bossBeamPrefab.SetActive(false);
-            
             if (_reloadingBigBeam == true)
             {
                 StartCoroutine(BigBeamCDRoutine());
@@ -221,6 +225,7 @@ public class Boss : MonoBehaviour
             _currHealth--;
             Debug.Log(_currHealth + " " + other.tag);
             Destroy(other.gameObject);
+            BossDamageFlash();
         }
         if (other.tag == "Player")
         {
@@ -248,5 +253,19 @@ public class Boss : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
-    //if boss takes damage, turn sprite white briefly (flash)
+    private void BossDamageFlash()
+    {
+        _spriteRendererBoss.color = new Color(1, 1, 1, .5f);
+        if (_damageFlash == false)
+        {
+            StartCoroutine(DamageFlashRoutine());
+            _damageFlash = true;
+        }
+    }
+    IEnumerator DamageFlashRoutine()
+    {
+        yield return new WaitForSeconds(.075f);
+        _spriteRendererBoss.color = new Color(1, 1, 1, 1);
+        _damageFlash = false;
+    }
 }
