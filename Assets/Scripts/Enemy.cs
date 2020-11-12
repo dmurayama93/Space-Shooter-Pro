@@ -226,6 +226,7 @@ public class Enemy : MonoBehaviour
             }
             _enemyAnimator.SetTrigger("OnEnemyDeath");
             _enemySpeed = 0;
+            _speedDirection = 0;
 
             _audioSource.clip = _enemyExplosion;
             _audioSource.Play();
@@ -244,6 +245,7 @@ public class Enemy : MonoBehaviour
 
             _enemyAnimator.SetTrigger("OnEnemyDeath");
             _enemySpeed = 0;
+            _speedDirection = 0;
 
             _audioSource.clip = _enemyExplosion;
             _audioSource.Play();
@@ -334,12 +336,12 @@ public class Enemy : MonoBehaviour
     {
         float _distance = Vector3.Distance(gameObject.transform.position, _player.transform.position);
 
-        if (_distance <= 5.0f)
+        if (_distance <= 5.0f && _enemyDead == false)
         {
             _enemySpeed = 5.0f;
             //Debug.Log(_distance + " " + _enemySpeed);
         }
-        else if (_distance > 5.0f)
+        else if (_distance > 5.0f && _enemyDead == false)
         {
             _enemySpeed = 3.0f;
             //Debug.Log(_enemySpeed + " No Charge");
@@ -354,7 +356,7 @@ public class Enemy : MonoBehaviour
         {
             float _distanceLaser = Vector3.Distance(gameObject.transform.position, _laser.transform.position);
             //Debug.Log("Laser Active " + _distanceLaser);
-            if (_distanceLaser <= 3.0f)
+            if (_distanceLaser <= 3.0f && _enemyDead == false)
             {
                 //move left or right
                 //_movementRandom = 3;
