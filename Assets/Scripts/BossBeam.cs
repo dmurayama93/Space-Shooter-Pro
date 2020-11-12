@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BossBeam : MonoBehaviour
 {
-    private float _maxY = 2.7f;
+    private float _maxY = 2.5f;
     Vector3 temp;
     private bool _beamActive;
 

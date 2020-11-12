@@ -35,7 +35,11 @@ public class Boss : MonoBehaviour
 
     private BossBeam _bossBeam;
 
-    //hp make bar displaying hp as well
+    //hp
+    private int _maxHealth = 100;
+    private int _currHealth;
+
+    //hit detection for player and boss
 
     // Start is called before the first frame update
     void Start()
@@ -44,6 +48,7 @@ public class Boss : MonoBehaviour
         _randDirection = Random.Range(1, 3);
         _ammo = _ammoMax;
         transform.position = new Vector3(0f, 8f, 0f);
+        _currHealth = _maxHealth;
     }
 
     // Update is called once per frame
@@ -58,6 +63,7 @@ public class Boss : MonoBehaviour
         }
         NormalLaser();
         BigBeam();
+        BossHp();
     }
     private void BossCharge()
     {
@@ -165,7 +171,7 @@ public class Boss : MonoBehaviour
     }
     IEnumerator NormalLaserFireRate()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1.5f);
         _fireCD = true;
     }
     private void BigBeam()
@@ -208,4 +214,39 @@ public class Boss : MonoBehaviour
         _beamEnergy = 100;
         _reloadingBigBeam = true;
     }
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.tag == "Laser")
+        {
+            _currHealth--;
+            Debug.Log(_currHealth + " " + other.tag);
+            Destroy(other.gameObject);
+        }
+        if (other.tag == "Player")
+        {
+            _currHealth--;
+            Debug.Log(_currHealth + " " + other.tag);
+        }
+        if (other.tag == "HomingMissile")
+        {
+            _currHealth -= 10;
+            Debug.Log(_currHealth + " " + other.tag);
+            Destroy(other.gameObject);
+        }
+        if (other.tag == "RingShot")
+        {
+            _currHealth -= 20;
+            Debug.Log(_currHealth + " " + other.tag);
+            Destroy(other.gameObject);
+        }
+    }
+
+    private void BossHp()
+    {
+        if (_currHealth <= 0)
+        {
+            Destroy(this.gameObject);
+        }
+    }
+    //if boss takes damage, turn sprite white briefly (flash)
 }
