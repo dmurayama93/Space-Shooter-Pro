@@ -17,7 +17,7 @@ public class Laser : MonoBehaviour
     void Update()
     {
         //translate laser up
-        transform.Translate(Vector3.up * _speedLaser * Time.deltaTime);
+        transform.Translate(Vector3.right * _speedLaser * Time.deltaTime);
 
         //when the laser passes y = 8 destroy clone
         if (transform.position.y > 8f)

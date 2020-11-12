@@ -21,6 +21,8 @@ public class EnemyPoison : MonoBehaviour
 
     [SerializeField]
     private GameObject _poisonCloudPrefab;
+    [SerializeField]
+    private GameObject _explosionPrefab;
 
     // Start is called before the first frame update
     void Start()
@@ -98,12 +100,12 @@ public class EnemyPoison : MonoBehaviour
             _enemySpeed = 0;
             _speedDirection = 0;
 
-            //audio
+            EnemyDestroy();
 
             //Destroy sequence
             _dead = true;
             Destroy(GetComponent<Collider2D>());
-            Destroy(this.gameObject, 2.8f);
+            Destroy(this.gameObject, .25f);
         }
 
         if (other.tag == "Laser")
@@ -119,12 +121,12 @@ public class EnemyPoison : MonoBehaviour
             _enemySpeed = 0;
             _speedDirection = 0;
 
-            //audio
+            EnemyDestroy();
 
             //destroy sequence
             _dead = true;
             Destroy(GetComponent<Collider2D>());
-            Destroy(this.gameObject, 2.8f);
+            Destroy(this.gameObject, .25f);
         }
 
         if (other.tag == "Ring")
@@ -138,12 +140,12 @@ public class EnemyPoison : MonoBehaviour
             _enemySpeed = 0;
             _speedDirection = 0;
 
-            //audio
+            EnemyDestroy();
 
             //destroy sequence
             _dead = true;
             Destroy(GetComponent<Collider2D>());
-            Destroy(this.gameObject, 2.8f);
+            Destroy(this.gameObject, .25f);
         }
     }
 
@@ -165,5 +167,10 @@ public class EnemyPoison : MonoBehaviour
     {
         yield return new WaitForSeconds(Random.Range(3.0f, 5.0f));
         _fireCD = false;
+    }
+
+    private void EnemyDestroy()
+    {
+        Instantiate(_explosionPrefab, transform.position, Quaternion.identity);
     }
 }

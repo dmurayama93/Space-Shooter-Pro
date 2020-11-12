@@ -232,3 +232,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _poisonCloudPrefab: {fileID: 272106149668109633, guid: 1b077abb27813904f84bc37b416e0e17,
     type: 3}
+  _explosionPrefab: {fileID: 5699372581738369373, guid: be9ad11bd7eae6a4fa4b3a4e02b67ae2,
+    type: 3}

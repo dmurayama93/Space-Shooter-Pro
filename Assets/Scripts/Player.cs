@@ -86,6 +86,9 @@ public class Player : MonoBehaviour
 
     private GameObject _powerUp;
 
+    [SerializeField]
+    private GameObject _explosionPrefab;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -287,9 +290,10 @@ public class Player : MonoBehaviour
         {
             //communicate with spawn manager when player is dead
             _spawnManager.OnPlayerDeath();
-            _audioSource.clip = _playerExplosionSoundClip;
-            _audioSource.Play();
-            Destroy(this.gameObject, 2.5f);
+            Instantiate(_explosionPrefab, transform.position, Quaternion.identity);
+            //_audioSource.clip = _playerExplosionSoundClip;
+            //_audioSource.Play();
+            Destroy(this.gameObject, .25f);
         }
     }
 
