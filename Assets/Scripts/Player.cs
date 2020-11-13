@@ -367,22 +367,6 @@ public class Player : MonoBehaviour
 
         _shieldVisualizer.SetActive(true);
 
-        StopCoroutine(ShieldDownRoutine());
-        StartCoroutine(ShieldDownRoutine());
-    }
-
-    IEnumerator ShieldDownRoutine()
-    {
-        if (_shieldStrength < 1)
-        {
-            _shieldActive = false;
-            _shieldVisualizer.SetActive(false);
-        }
-
-        yield return new WaitForSeconds(5.0f);
-        _shieldActive = false;
-        _shieldStrength = 0;
-        _shieldVisualizer.SetActive(false);
     }
 
     public void AddScore(int points)
