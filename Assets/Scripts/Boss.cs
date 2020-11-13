@@ -36,7 +36,7 @@ public class Boss : MonoBehaviour
     private BossBeam _bossBeam;
 
     //hp
-    private int _maxHealth = 5;
+    private int _maxHealth = 10;
     private int _currHealth;
     private bool _bossDead = true;
 
@@ -268,14 +268,14 @@ public class Boss : MonoBehaviour
         }
         if (other.tag == "HomingMissile")
         {
-            _currHealth -= 10;
+            _currHealth -= 5;
             Debug.Log(_currHealth + " " + other.tag);
             Destroy(other.gameObject);
             BossDamageFlash();
         }
         if (other.tag == "RingShot")
         {
-            _currHealth -= 20;
+            _currHealth -= 5;
             Debug.Log(_currHealth + " " + other.tag);
             Destroy(other.gameObject);
             BossDamageFlash();
