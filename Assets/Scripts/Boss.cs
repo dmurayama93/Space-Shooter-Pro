@@ -43,6 +43,7 @@ public class Boss : MonoBehaviour
     SpriteRenderer _spriteRendererBoss;
     private bool _damageFlash;
 
+    private bool _stopAttack;
     private bool _stopMove;
 
     [SerializeField]
@@ -164,7 +165,7 @@ public class Boss : MonoBehaviour
     private void NormalLaser()
     {
         //create fire rate cd
-        if (_fireCD == true && _ammo > 0)
+        if (_fireCD == true && _ammo > 0 && _stopAttack == false)
         {
             Instantiate(_bossLaserPrefab, transform.position + new Vector3(0, 0, 0), Quaternion.identity);
             _ammo--;
@@ -194,13 +195,13 @@ public class Boss : MonoBehaviour
     }
     IEnumerator NormalLaserFireRate()
     {
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1.75f);
         _fireCD = true;
     }
     private void BigBeam()
     {
         _bossBeam = _bossBeamPrefab.GetComponent<BossBeam>();
-        if (_bigBeamCD == true && _beamEnergy > 0)
+        if (_bigBeamCD == true && _beamEnergy > 0 && _stopAttack == false)
         {
             _bossBeamPrefab.SetActive(true);
             _bossBeam.BeamActive(true);
@@ -273,13 +274,14 @@ public class Boss : MonoBehaviour
     {
         if (_currHealth <= 0 && _bossDead == true)
         {
+            _stopAttack = true;
             _stopMove = true;
             //tells wave manager boss is dead
             _spawnManager.BossDeadSpawnManager();
             _player.BossDead(true);
             Instantiate(_explosionPrefab, transform.position, Quaternion.identity);
             Destroy(GetComponent<Collider2D>());
-            Destroy(this.gameObject, 3f);
+            Destroy(this.gameObject, 1.5f);
 
             _bossDead = false;
         }
