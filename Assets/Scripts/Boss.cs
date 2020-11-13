@@ -54,8 +54,6 @@ public class Boss : MonoBehaviour
     private Player _player;
 
     //audio
-    //[SerializeField]
-    //private AudioClip _laserClip;
     [SerializeField]
     private AudioClip _beamClip;
 
@@ -213,9 +211,10 @@ public class Boss : MonoBehaviour
         _audioSource.clip = _beamClip;
         if (_bigBeamCD == true && _beamEnergy > 0 && _stopAttack == false)
         {
+            //_audioSource.Play();
             _bossBeamPrefab.SetActive(true);
             _bossBeam.BeamActive(true);
-            _audioSource.Play();
+            
             if (_energyDown == true)
             {
                 StartCoroutine(BigBeamEnergy());
@@ -249,6 +248,7 @@ public class Boss : MonoBehaviour
         _bigBeamCD = true;
         _beamEnergy = 100;
         _reloadingBigBeam = true;
+        _audioSource.Play();
     }
     private void OnTriggerEnter2D(Collider2D other)
     {

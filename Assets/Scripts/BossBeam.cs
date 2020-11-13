@@ -8,11 +8,9 @@ public class BossBeam : MonoBehaviour
     Vector3 temp;
     [SerializeField]
     private bool _beamActive;
-
     // Start is called before the first frame update
     void Start()
-    {
-
+    {      
     }
 
     // Update is called once per frame

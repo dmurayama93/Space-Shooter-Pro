@@ -281,8 +281,7 @@ MonoBehaviour:
   _bossBeamPrefab: {fileID: 1700028044099847699}
   _explosionPrefab: {fileID: 5699372581738369373, guid: be9ad11bd7eae6a4fa4b3a4e02b67ae2,
     type: 3}
-  _laserClip: {fileID: 8300000, guid: 75676f361bdfeaf41a46623e95df3dbc, type: 3}
-  _beamClip: {fileID: 8300000, guid: c97d2e77a77ab504a9a05d7024c6faae, type: 3}
+  _beamClip: {fileID: 8300000, guid: c0dffa5d06b7b1945bbe27149e5d69ca, type: 3}
 --- !u!95 &2605361945713428416
 Animator:
   serializedVersion: 3
