@@ -202,7 +202,7 @@ public class Boss : MonoBehaviour
     }
     IEnumerator NormalLaserFireRate()
     {
-        yield return new WaitForSeconds(1.75f);
+        yield return new WaitForSeconds(2f);
         _fireCD = true;
     }
     private void BigBeam()
@@ -244,7 +244,7 @@ public class Boss : MonoBehaviour
     }
     IEnumerator BigBeamCDRoutine()
     {
-        yield return new WaitForSeconds(15f);
+        yield return new WaitForSeconds(7.5f);
         _bigBeamCD = true;
         _beamEnergy = 100;
         _reloadingBigBeam = true;
