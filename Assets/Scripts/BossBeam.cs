@@ -8,11 +8,20 @@ public class BossBeam : MonoBehaviour
     Vector3 temp;
     [SerializeField]
     private bool _beamActive;
+
+    private AudioSource _audioSource;
+    [SerializeField]
+    private AudioClip _bossBeam;
     // Start is called before the first frame update
     void Start()
-    {      
+    {
+       
     }
-
+    private void OnEnable()
+    {
+        _audioSource = GetComponent<AudioSource>();
+        _audioSource.PlayOneShot(_bossBeam);
+    }
     // Update is called once per frame
     void Update()
     {

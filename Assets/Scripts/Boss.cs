@@ -54,16 +54,16 @@ public class Boss : MonoBehaviour
     private Player _player;
 
     //audio
-    [SerializeField]
-    private AudioClip _beamClip;
+    //[SerializeField]
+   // private AudioClip _beamClip;
 
-    private AudioSource _audioSource;
+    //private AudioSource _audioSource;
     //hit detection for player and boss
 
     // Start is called before the first frame update
     void Start()
     {
-        _audioSource = GetComponent<AudioSource>();
+        //_audioSource = GetComponent<AudioSource>();
         _player = GameObject.Find("Player").GetComponent<Player>();
         _spawnManager = GameObject.Find("Spawn_Manager").GetComponent<SpawnManager>();
         StartCoroutine(ChargeCDRoutine());
@@ -208,10 +208,11 @@ public class Boss : MonoBehaviour
     private void BigBeam()
     {
         _bossBeam = _bossBeamPrefab.GetComponent<BossBeam>();
-        _audioSource.clip = _beamClip;
+        //_audioSource.clip = _beamClip;
         if (_bigBeamCD == true && _beamEnergy > 0 && _stopAttack == false)
         {
-            //_audioSource.Play();
+            
+            //_audioSource.PlayOneShot(_beamClip);
             _bossBeamPrefab.SetActive(true);
             _bossBeam.BeamActive(true);
             
@@ -248,7 +249,7 @@ public class Boss : MonoBehaviour
         _bigBeamCD = true;
         _beamEnergy = 100;
         _reloadingBigBeam = true;
-        _audioSource.Play();
+        //_audioSource.Play();
     }
     private void OnTriggerEnter2D(Collider2D other)
     {

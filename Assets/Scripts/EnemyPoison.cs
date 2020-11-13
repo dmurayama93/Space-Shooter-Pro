@@ -168,6 +168,8 @@ public class EnemyPoison : MonoBehaviour
             _enemySpeed = 0;
             _speedDirection = 0;
 
+            EnemyDestroy();
+
             _dead = true;
             Destroy(GetComponent<Collider2D>());
             Destroy(this.gameObject, 2.8f);

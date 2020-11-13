@@ -326,8 +326,8 @@ public class Player : MonoBehaviour
     { 
         _tripleShotActive = true;
         _uiManager.UpdateAmmoImage(true);
-        StopCoroutine(TripleShotPowerDownRoutine());
-        StartCoroutine(TripleShotPowerDownRoutine());
+        StopCoroutine("TripleShotPowerDownRoutine");
+        StartCoroutine("TripleShotPowerDownRoutine");
     }
 
     IEnumerator TripleShotPowerDownRoutine()
@@ -346,6 +346,7 @@ public class Player : MonoBehaviour
         _speedBoostActive = true;
         if (_speedBoostActive == true)
         {
+            _currentBoost = 100f;
             _boostNeg = 0f;
         }
         StopCoroutine(SpeedBoostDownRoutine());
