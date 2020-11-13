@@ -37,11 +37,12 @@ public class SpawnManager : MonoBehaviour
 
     private float _enemyCD;
     private float _enemyBossCD;
+    private bool _bossDead;
 
     //Wave Manager
     private int _waveLevel = 1;
     private float _wavePoints;
-    private float _wavePointsReq = 50f;
+    private float _wavePointsReq = 10f;
     private float _diffMultiplier = 1.5f;
     private bool _keepSpawning;
     
@@ -55,7 +56,7 @@ public class SpawnManager : MonoBehaviour
     {
         _circleEnemyCDStart = Random.Range(5.0f, 7.5f);
         _enemyCD = Random.Range(3.0f, 5.0f);
-        _enemyBossCD = Random.Range(5.0f, 7.5f);
+        _enemyBossCD = Random.Range(8f, 12f);
         
     }
 
@@ -80,7 +81,7 @@ public class SpawnManager : MonoBehaviour
     }
     IEnumerator BossRoutine()
     {
-        yield return new WaitForSeconds(5.0f);
+        yield return new WaitForSeconds(1.0f);
 
         GameObject bossEnemy = Instantiate(_bossPrefab, transform.position, Quaternion.identity);
     }
@@ -95,17 +96,6 @@ public class SpawnManager : MonoBehaviour
             yield return new WaitForSeconds(_enemyCD);
         }
     }
-    IEnumerator SpawnEnemyBossRoutine()
-    {
-        yield return new WaitForSeconds(6f);
-        while (_stopSpawning == false)
-        {
-            Vector3 posToSpawn = new Vector3(Random.Range(-8f, 8f), 7, 0);
-            GameObject newEnemy = Instantiate(_enemyPrefab, posToSpawn, Quaternion.identity, _enemyContainer.transform);
-
-            yield return new WaitForSeconds(_enemyBossCD);
-        }
-    }
     IEnumerator SpawnCircleEnemyRoutine()
     {
         yield return new WaitForSeconds(_circleEnemyCDStart);
@@ -116,16 +106,29 @@ public class SpawnManager : MonoBehaviour
             _circleEnemyCD = Random.Range(4.0f, 12.0f);
             _circleEnemyCDStart = 0.0f;
             yield return new WaitForSeconds(_circleEnemyCD);
-        }     
+        }
     }
+    //Boss Spawning
+    IEnumerator SpawnEnemyBossRoutine()
+    {
+        yield return new WaitForSeconds(8f);
+        while (_stopSpawning == false)
+        {
+            Vector3 posToSpawn = new Vector3(Random.Range(-8f, 8f), 7, 0);
+            GameObject newEnemy = Instantiate(_enemyPrefab, posToSpawn, Quaternion.identity, _enemyContainer.transform);
+
+            yield return new WaitForSeconds(_enemyBossCD);
+        }
+    }
+
     IEnumerator SpawnCircleEnemyBossRoutine()
     {
-        yield return new WaitForSeconds(_circleEnemyCDStart);
+        yield return new WaitForSeconds(15f);
         while (_stopSpawning == false)
         {
             Vector3 posToSpawn = new Vector3(Random.Range(-8f, 8f), 7, 0);
             GameObject newCircleEnemy = Instantiate(_circleEnemyPrefab, posToSpawn, Quaternion.identity, _enemyContainer.transform);
-            _circleEnemyBossCD = Random.Range(6f, 9f);
+            _circleEnemyBossCD = Random.Range(12f, 15f);
             _circleEnemyCDStart = 0.0f;
             yield return new WaitForSeconds(_circleEnemyBossCD);
         }
@@ -186,7 +189,11 @@ public class SpawnManager : MonoBehaviour
                 _keepSpawning = false;
             }
         }
-        if (_wavePoints >= _wavePointsReq)
+        if (_wavePoints >= _wavePointsReq && _waveLevel % 4 != 0)
+        {
+            StartCoroutine(InBetweenWavesRoutine());
+        }
+        if (_waveLevel % 4 == 0 && _bossDead == true)
         {
             StartCoroutine(InBetweenWavesRoutine());
         }
@@ -195,6 +202,10 @@ public class SpawnManager : MonoBehaviour
     public void StartGame()
     {
         _keepSpawning = true;
+    }
+    public void BossDeadSpawnManager()
+    {
+        _bossDead = true;
     }
     //Wave Level 1 Start
     //When Player Points >= 100
