@@ -356,6 +356,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _scoreText: {fileID: 296907952}
   _livesImg: {fileID: 1271136925}
+  _ammoOne: {fileID: 1203568983}
+  _ammoTwo: {fileID: 1271504900}
+  _ammoThree: {fileID: 1289631654}
   _thrusterFill: {fileID: 0}
   _liveSprites:
   - {fileID: 21300000, guid: ba53e111f0125654cabfd4eefaf3a657, type: 3}

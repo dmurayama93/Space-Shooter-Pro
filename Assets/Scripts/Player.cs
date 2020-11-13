@@ -325,6 +325,7 @@ public class Player : MonoBehaviour
     public void TripleShotActive()
     { 
         _tripleShotActive = true;
+        _uiManager.UpdateAmmoImage(true);
         StopCoroutine(TripleShotPowerDownRoutine());
         StartCoroutine(TripleShotPowerDownRoutine());
     }
@@ -333,6 +334,7 @@ public class Player : MonoBehaviour
     {
         yield return new WaitForSeconds(5.0f);
         _tripleShotActive = false;
+        _uiManager.UpdateAmmoImage(false);
 
     }
     public void RingActive()

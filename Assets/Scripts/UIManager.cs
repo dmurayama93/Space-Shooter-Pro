@@ -11,6 +11,12 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private Image _livesImg;
     [SerializeField]
+    private Image _ammoOne;
+    [SerializeField]
+    private Image _ammoTwo;
+    [SerializeField]
+    private Image _ammoThree;
+    [SerializeField]
     private Image _thrusterFill;
     [SerializeField]
     private Sprite[] _liveSprites;
@@ -94,7 +100,21 @@ public class UIManager : MonoBehaviour
             GameOverSequence();
         }
     }
-
+    public void UpdateAmmoImage(bool _tripleActive)
+    {
+        if (_tripleActive == true)
+        {
+            _ammoOne.color = Color.green;
+            _ammoTwo.color = Color.green;
+            _ammoThree.color = Color.green;
+        }
+        if (_tripleActive == false)
+        {
+            _ammoOne.color = Color.white;
+            _ammoTwo.color = Color.white;
+            _ammoThree.color = Color.white;
+        }
+    }
     void GameOverSequence()
     {       
         _gameManager.GameOver();
