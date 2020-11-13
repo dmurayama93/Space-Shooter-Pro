@@ -94,6 +94,8 @@ public class Player : MonoBehaviour
 
     private float _boostNeg = 1.5f;
 
+    private bool _bossShake;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -168,7 +170,7 @@ public class Player : MonoBehaviour
 
         PickupCollect();
         HomingMissileFire();
-
+        BossCameraShake();
     }
     void CalculateMovement()
     {
@@ -442,5 +444,24 @@ public class Player : MonoBehaviour
             Instantiate(_homingMissilePrefab, transform.position, Quaternion.identity);
             _homingMissileActive = false;
         }
+    }
+    public void BossDead(bool _bossDead)
+    {
+        if (_bossDead == true)
+        {
+            _bossShake = true;
+        }
+        if (_bossDead == false)
+        {
+            _bossShake = false;
+        }
+    }
+    private void BossCameraShake()
+    {
+        if (_bossShake == true)
+        {
+            StartCoroutine(cameraShake.Shake(2.5f, .5f));
+            _bossShake = false;
+        }      
     }
 }

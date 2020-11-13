@@ -280,6 +280,8 @@ MonoBehaviour:
   _bossBeamPrefab: {fileID: 1700028044099847699}
   _explosionPrefab: {fileID: 5699372581738369373, guid: be9ad11bd7eae6a4fa4b3a4e02b67ae2,
     type: 3}
+  cameraShake: {fileID: 5775676332504310912, guid: c788fef7356caed468015b70e7d1e5fc,
+    type: 3}
 --- !u!95 &2605361945713428416
 Animator:
   serializedVersion: 3

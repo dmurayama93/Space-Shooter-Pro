@@ -2640,7 +2640,7 @@ SpriteRenderer:
   m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: a45d21c30e0154a9ca1a5d6fb2bf3cfa, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.9622642, g: 0.7625867, b: 0.72169816, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -2754,8 +2754,8 @@ GameObject:
   - component: {fileID: 2127793631}
   - component: {fileID: 2127793630}
   - component: {fileID: 2127793629}
-  - component: {fileID: 2127793632}
   - component: {fileID: 2127793633}
+  - component: {fileID: 2127793632}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera

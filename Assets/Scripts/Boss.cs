@@ -49,11 +49,14 @@ public class Boss : MonoBehaviour
     private GameObject _explosionPrefab;
 
     private SpawnManager _spawnManager;
+
+    private Player _player;
     //hit detection for player and boss
 
     // Start is called before the first frame update
     void Start()
     {
+        _player = GameObject.Find("Player").GetComponent<Player>();
         _spawnManager = GameObject.Find("Spawn_Manager").GetComponent<SpawnManager>();
         StartCoroutine(ChargeCDRoutine());
         _randDirection = Random.Range(1, 3);
@@ -273,6 +276,7 @@ public class Boss : MonoBehaviour
             _stopMove = true;
             //tells wave manager boss is dead
             _spawnManager.BossDeadSpawnManager();
+            _player.BossDead(true);
             Instantiate(_explosionPrefab, transform.position, Quaternion.identity);
             Destroy(GetComponent<Collider2D>());
             Destroy(this.gameObject, 3f);
