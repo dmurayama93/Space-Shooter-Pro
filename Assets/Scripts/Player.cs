@@ -92,6 +92,8 @@ public class Player : MonoBehaviour
 
     private bool _newTripleShot;
 
+    private float _boostNeg = 1.5f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -180,7 +182,7 @@ public class Player : MonoBehaviour
         if (Input.GetKey("left shift") && _currentBoost > 0 && _thrusterDebuff == false)
         {
             _speed = 10;
-            _currentBoost -= 1.5f;
+            _currentBoost -= _boostNeg;
 
             thruster.SetValue(_currentBoost);
             transform.Translate(direction * _speed * Time.deltaTime);
@@ -340,7 +342,11 @@ public class Player : MonoBehaviour
     public void SpeedBoostActive()
     {
         _speedBoostActive = true;
-        _speed *= _speedMultiplier;
+        //_speed *= _speedMultiplier;
+        if (_speedBoostActive == true)
+        {
+            _boostNeg = 0f;
+        }
         StopCoroutine(SpeedBoostDownRoutine());
         StartCoroutine(SpeedBoostDownRoutine());
     }
@@ -350,6 +356,7 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(5.0f);
         _speed /= _speedMultiplier;
         _speedBoostActive = false;
+        _boostNeg = 1.5f;
     }
 
     public void ShieldActive()
