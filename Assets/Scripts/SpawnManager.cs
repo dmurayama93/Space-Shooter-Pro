@@ -203,6 +203,7 @@ public class SpawnManager : MonoBehaviour
         if (_waveLevel % 4 == 0 && _bossDead == true)
         {
             StartCoroutine(InBetweenWavesRoutine());
+            _bossDead = false;
         }
         
     }
