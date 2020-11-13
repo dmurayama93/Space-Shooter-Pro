@@ -7,6 +7,8 @@ using UnityEngine.UIElements;
 public class SpawnManager : MonoBehaviour
 {
     [SerializeField]
+    private GameObject _bossPrefab;
+    [SerializeField]
     private GameObject _enemyPrefab;
     [SerializeField]
     private GameObject _circleEnemyPrefab;
@@ -31,13 +33,15 @@ public class SpawnManager : MonoBehaviour
 
     private float _circleEnemyCDStart;
     private float _circleEnemyCD;
+    private float _circleEnemyBossCD;
 
     private float _enemyCD;
+    private float _enemyBossCD;
 
     //Wave Manager
     private int _waveLevel = 1;
     private float _wavePoints;
-    private float _wavePointsReq = 100f;
+    private float _wavePointsReq = 50f;
     private float _diffMultiplier = 1.5f;
     private bool _keepSpawning;
     
@@ -51,6 +55,8 @@ public class SpawnManager : MonoBehaviour
     {
         _circleEnemyCDStart = Random.Range(5.0f, 7.5f);
         _enemyCD = Random.Range(3.0f, 5.0f);
+        _enemyBossCD = Random.Range(5.0f, 7.5f);
+        
     }
 
     public void StartSpawning()
@@ -59,14 +65,25 @@ public class SpawnManager : MonoBehaviour
         StartCoroutine(SpawnPowerUpRoutine());
         StartCoroutine(SpawnCircleEnemyRoutine());
     }
-
+    public void BossEnemySpawning()
+    {
+        StartCoroutine(BossRoutine());
+        StartCoroutine(SpawnEnemyBossRoutine());
+        StartCoroutine(SpawnCircleEnemyBossRoutine());
+        StartCoroutine(SpawnPowerUpRoutine());
+    }
     // Update is called once per frame
     void Update()
     {
         Debug.Log("Wave " + _waveLevel + " " + "wavepoints " + _wavePoints + " " + "Wavepoints Req " + _wavePointsReq);
         WaveManager();
     }
+    IEnumerator BossRoutine()
+    {
+        yield return new WaitForSeconds(5.0f);
 
+        GameObject bossEnemy = Instantiate(_bossPrefab, transform.position, Quaternion.identity);
+    }
     IEnumerator SpawnEnemyRoutine()
     {
         yield return new WaitForSeconds(2.5f);
@@ -76,6 +93,17 @@ public class SpawnManager : MonoBehaviour
             GameObject newEnemy = Instantiate(_enemyPrefab, posToSpawn, Quaternion.identity, _enemyContainer.transform);
             
             yield return new WaitForSeconds(_enemyCD);
+        }
+    }
+    IEnumerator SpawnEnemyBossRoutine()
+    {
+        yield return new WaitForSeconds(6f);
+        while (_stopSpawning == false)
+        {
+            Vector3 posToSpawn = new Vector3(Random.Range(-8f, 8f), 7, 0);
+            GameObject newEnemy = Instantiate(_enemyPrefab, posToSpawn, Quaternion.identity, _enemyContainer.transform);
+
+            yield return new WaitForSeconds(_enemyBossCD);
         }
     }
     IEnumerator SpawnCircleEnemyRoutine()
@@ -89,6 +117,18 @@ public class SpawnManager : MonoBehaviour
             _circleEnemyCDStart = 0.0f;
             yield return new WaitForSeconds(_circleEnemyCD);
         }     
+    }
+    IEnumerator SpawnCircleEnemyBossRoutine()
+    {
+        yield return new WaitForSeconds(_circleEnemyCDStart);
+        while (_stopSpawning == false)
+        {
+            Vector3 posToSpawn = new Vector3(Random.Range(-8f, 8f), 7, 0);
+            GameObject newCircleEnemy = Instantiate(_circleEnemyPrefab, posToSpawn, Quaternion.identity, _enemyContainer.transform);
+            _circleEnemyBossCD = Random.Range(6f, 9f);
+            _circleEnemyCDStart = 0.0f;
+            yield return new WaitForSeconds(_circleEnemyBossCD);
+        }
     }
 
     IEnumerator SpawnPowerUpRoutine()
@@ -113,6 +153,7 @@ public class SpawnManager : MonoBehaviour
     private void InBetweenWaves()
     {
         _stopSpawning = true;
+        //create reference to enemy script, if destroy enemy = true, enemy destroy
     }
     public void WavePoints(int points)
     {
@@ -134,18 +175,22 @@ public class SpawnManager : MonoBehaviour
     {
         if (_wavePoints < _wavePointsReq && _keepSpawning == true)
         {
-            StartSpawning();
-            _keepSpawning = false;
+            if (_waveLevel % 4 == 0)
+            {
+                BossEnemySpawning();
+                _keepSpawning = false;
+            }
+            else if (_waveLevel % 4 != 0)
+            {
+                StartSpawning();
+                _keepSpawning = false;
+            }
         }
         if (_wavePoints >= _wavePointsReq)
         {
             StartCoroutine(InBetweenWavesRoutine());
         }
-                
-        //_waveLevel++;
-        //_wavePointsReq *= _diffMultiplier;
-        //_wavePoints = 0;
-
+        
     }
     public void StartGame()
     {
@@ -158,5 +203,5 @@ public class SpawnManager : MonoBehaviour
     //Wait 5-10 seconds between waves
     //Wave ++
     //DiffMultiplier += .5
-
+    //wave /4 = 0 , boss wave
 }

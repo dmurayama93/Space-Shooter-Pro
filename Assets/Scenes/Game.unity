@@ -1311,6 +1311,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b70ad45ac661404896646a96e89b244, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _bossPrefab: {fileID: 3589127171862299979, guid: 918e8c6027a30ba45a9d68dd0cef7481,
+    type: 3}
   _enemyPrefab: {fileID: 6188227862910273665, guid: 6811bf89c39c1b24ba1f9cda7dc7a260,
     type: 3}
   _circleEnemyPrefab: {fileID: 4755926829966466592, guid: 7885e9e85f6238946b4ef6827b86d416,
@@ -1997,6 +1999,7 @@ MonoBehaviour:
   _ringPrefab: {fileID: 101456972021218864, guid: bbfc4ad5069a80a46918aec4f7353faf,
     type: 3}
   _playerLife: 3
+  _tripleShotActive: 0
   _ringActive: 0
   _shieldActive: 0
   _shieldVisualizer: {fileID: 120446317}
