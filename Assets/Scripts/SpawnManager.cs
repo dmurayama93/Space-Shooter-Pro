@@ -51,13 +51,16 @@ public class SpawnManager : MonoBehaviour
 
     private float _powerUpSpawnTimer;
 
+    private UIManager _uiManager;
+
     // Start is called before the first frame update
     void Start()
     {
         _circleEnemyCDStart = Random.Range(5.0f, 7.5f);
         _enemyCD = Random.Range(3.0f, 5.0f);
         _enemyBossCD = Random.Range(8f, 12f);
-        
+
+        _uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
     }
 
     public void StartSpawning()
@@ -169,9 +172,13 @@ public class SpawnManager : MonoBehaviour
         _waveLevel++;
         _wavePointsReq *= _diffMultiplier;
         _wavePoints = 0;
+
+        _uiManager.WaveLevelTrue();
+        _uiManager.WaveLevelText(_waveLevel);
         
         yield return new WaitForSeconds(10f);
         _stopSpawning = false;
+        _uiManager.WaveLevelFalse();
         _keepSpawning = true;  
     }
     public void WaveManager()

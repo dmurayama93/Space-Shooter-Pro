@@ -24,6 +24,8 @@ public class UIManager : MonoBehaviour
     private Text _reloadText;
     [SerializeField]
     private Text _ammoText;
+    [SerializeField]
+    private Text _waveLevelText;
 
     private GameManager _gameManager;
 
@@ -35,6 +37,8 @@ public class UIManager : MonoBehaviour
         _restartText.gameObject.SetActive(false);
         _returnMainMenuText.gameObject.SetActive(false);
         _reloadText.gameObject.SetActive(false);
+        _waveLevelText.gameObject.SetActive(false);
+
         _gameManager = GameObject.Find("Game_Manager").GetComponent<GameManager>();
 
         if (_gameManager == null)
@@ -42,7 +46,18 @@ public class UIManager : MonoBehaviour
             Debug.Log("Game Manager is Null");
         }
     }
-
+    public void WaveLevelText(int waveLevel)
+    {
+        _waveLevelText.text = "Wave " + waveLevel.ToString();
+    }
+    public void WaveLevelTrue()
+    {
+        _waveLevelText.gameObject.SetActive(true);
+    }
+    public void WaveLevelFalse()
+    {
+        _waveLevelText.gameObject.SetActive(false);
+    }
     public void ReloadText()
     {
         _reloadText.gameObject.SetActive(true);
