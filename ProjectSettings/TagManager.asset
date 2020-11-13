@@ -11,6 +11,7 @@ TagManager:
   - Ring
   - PowerUp
   - HomingMissile
+  - BossBeam
   layers:
   - Default
   - TransparentFX

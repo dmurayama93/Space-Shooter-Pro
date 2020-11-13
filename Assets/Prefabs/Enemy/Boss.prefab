@@ -19,20 +19,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &3315451786789252487
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1700028044099847699}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a9bd1fc449ec0b43942f8ba337bd69c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _beamActive: 0
-  _bossBeam: {fileID: 8300000, guid: c0dffa5d06b7b1945bbe27149e5d69ca, type: 3}
 --- !u!82 &3147562443203120385
 AudioSource:
   m_ObjectHideFlags: 0
@@ -129,6 +115,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &3315451786789252487
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1700028044099847699}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a9bd1fc449ec0b43942f8ba337bd69c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _beamActive: 0
+  _bossBeam: {fileID: 8300000, guid: c0dffa5d06b7b1945bbe27149e5d69ca, type: 3}
 --- !u!1 &3589127171862299979
 GameObject:
   m_ObjectHideFlags: 0
@@ -550,6 +550,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3401340439241050898, guid: 6e8c7301c816c9a4c98db48486c489b2,
+        type: 3}
+      propertyPath: m_TagString
+      value: BossBeam
       objectReference: {fileID: 0}
     - target: {fileID: 3526420721339326153, guid: 6e8c7301c816c9a4c98db48486c489b2,
         type: 3}

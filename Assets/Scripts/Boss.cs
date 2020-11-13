@@ -262,9 +262,9 @@ public class Boss : MonoBehaviour
         }
         if (other.tag == "Player")
         {
-            _currHealth--;
             Debug.Log(_currHealth + " " + other.tag);
             BossDamageFlash();
+            _player.Damage();
         }
         if (other.tag == "HomingMissile")
         {

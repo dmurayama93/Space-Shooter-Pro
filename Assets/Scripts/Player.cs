@@ -384,8 +384,12 @@ public class Player : MonoBehaviour
             Damage();
             Destroy(other.gameObject);
         }
+        if (other.tag == "BossBeam")
+        {
+            Damage();
+        }
     }
-
+    
     public void PlusOneHP()
     {
         if (_playerLife == 3)

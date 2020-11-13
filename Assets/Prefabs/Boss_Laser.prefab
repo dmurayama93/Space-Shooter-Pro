@@ -274,6 +274,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Laser_Two
       objectReference: {fileID: 0}
+    - target: {fileID: 2579144735159503849, guid: 5aeef0ae6684d9f4db76695d9894c978,
+        type: 3}
+      propertyPath: m_TagString
+      value: EnemyLaser
+      objectReference: {fileID: 0}
     - target: {fileID: 3108708996819713317, guid: 5aeef0ae6684d9f4db76695d9894c978,
         type: 3}
       propertyPath: _laserClip
@@ -429,6 +434,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Laser_One
+      objectReference: {fileID: 0}
+    - target: {fileID: 1302439278975489522, guid: f54ef858faf507543a47b9e97cc8ae8a,
+        type: 3}
+      propertyPath: m_TagString
+      value: EnemyLaser
       objectReference: {fileID: 0}
     - target: {fileID: 3568406467271226062, guid: f54ef858faf507543a47b9e97cc8ae8a,
         type: 3}
