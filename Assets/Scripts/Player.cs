@@ -150,7 +150,7 @@ public class Player : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Space) && _actualAmmo < 1)
         {
-            Debug.Log("Reload");
+            //Debug.Log("Reload");
             _uiManager.ReloadText();
         }
         if (_tripleShotActive == true)
@@ -429,7 +429,7 @@ public class Player : MonoBehaviour
 
                 if (_powerUpDist <= 7.0f)
                 {
-                    Debug.Log("PowerUp Drag to Player " + _powerUpDist);
+                    //Debug.Log("PowerUp Drag to Player " + _powerUpDist);
                     _powerUp.transform.position = Vector3.MoveTowards(_powerUp.transform.position, gameObject.transform.position, 5f * Time.deltaTime);
                 }
             }

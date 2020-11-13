@@ -45,8 +45,13 @@ public class SpawnManager : MonoBehaviour
     private float _wavePointsReq = 10f;
     private float _diffMultiplier = 1.5f;
     private bool _keepSpawning;
-    
 
+    [SerializeField]
+    private GameObject Boss;
+    private Boss _boss;
+    private int _bossLevel = 0;
+    private float _bossMaxHP = 10;
+    
     private bool _stopSpawning = false;
 
     private float _powerUpSpawnTimer;
@@ -60,6 +65,7 @@ public class SpawnManager : MonoBehaviour
         _enemyCD = Random.Range(3.0f, 5.0f);
         _enemyBossCD = Random.Range(8f, 12f);
 
+        
         _uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
     }
 
@@ -185,9 +191,15 @@ public class SpawnManager : MonoBehaviour
     {
         if (_wavePoints < _wavePointsReq && _keepSpawning == true)
         {
+            
             if (_waveLevel % 4 == 0)
             {
-                BossEnemySpawning();
+                _boss = Boss.GetComponent<Boss>();
+                _bossLevel++;
+                _bossMaxHP *= 1.5f;
+                _boss.BossHpMax(_bossMaxHP);
+                Debug.Log("Boss Level " + _bossLevel + " Boss Max HP " + _bossMaxHP);
+                BossEnemySpawning();             
                 _keepSpawning = false;
             }
             else if (_waveLevel % 4 != 0)
@@ -215,6 +227,7 @@ public class SpawnManager : MonoBehaviour
     {
         _bossDead = true;
     }
+
     //Wave Level 1 Start
     //When Player Points >= 100
     //Stop Spawning

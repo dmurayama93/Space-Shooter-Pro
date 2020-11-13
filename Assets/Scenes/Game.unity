@@ -1430,6 +1430,7 @@ MonoBehaviour:
   - {fileID: 2654666376043723794, guid: 47d94b6eca6676245884119c5d22a6e6, type: 3}
   - {fileID: 2654666376043723794, guid: 47d94b6eca6676245884119c5d22a6e6, type: 3}
   - {fileID: 8840704163222679630, guid: 1f702cd21d2050146b4de12b6c6f65b1, type: 3}
+  Boss: {fileID: 3589127171862299979, guid: 918e8c6027a30ba45a9d68dd0cef7481, type: 3}
 --- !u!4 &889571294
 Transform:
   m_ObjectHideFlags: 0

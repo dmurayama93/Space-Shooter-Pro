@@ -32,7 +32,7 @@ public class BossBeam : MonoBehaviour
     {
         if (_beamActive == true)
         {
-            Debug.Log("Sequence true");
+            //Debug.Log("Sequence true");
             if (temp.y <= _maxY)
             {
                 temp = transform.localScale;
@@ -52,7 +52,7 @@ public class BossBeam : MonoBehaviour
         {
             temp.y = .1f;
             transform.localScale = temp;
-            Debug.Log("Resetting Scale " + temp.y);
+            //Debug.Log("Resetting Scale " + temp.y);
         }
     }
     //create method to be called in boss script that sets temp back to default when disabled

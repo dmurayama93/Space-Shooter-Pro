@@ -36,8 +36,8 @@ public class Boss : MonoBehaviour
     private BossBeam _bossBeam;
 
     //hp
-    private int _maxHealth = 10;
-    private int _currHealth;
+    private float _maxHealth = 10;
+    private float _currHealth;
     private bool _bossDead = true;
 
     SpriteRenderer _spriteRendererBoss;
@@ -63,13 +63,13 @@ public class Boss : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //_audioSource = GetComponent<AudioSource>();
         _player = GameObject.Find("Player").GetComponent<Player>();
         _spawnManager = GameObject.Find("Spawn_Manager").GetComponent<SpawnManager>();
         StartCoroutine(ChargeCDRoutine());
         _randDirection = Random.Range(1, 3);
         _ammo = _ammoMax;
         transform.position = new Vector3(0f, 8f, 0f);
+        BossHpMax(_maxHealth);//
         _currHealth = _maxHealth;
         _spriteRendererBoss = GetComponent<SpriteRenderer>();
     }
@@ -88,6 +88,11 @@ public class Boss : MonoBehaviour
         BigBeam();
         BossDestroy();
     }
+    public void BossHpMax(float _bossMaxHPSet)
+    {
+        _maxHealth = _bossMaxHPSet;
+    }
+    //movement
     private void BossCharge()
     {
         if (_chargeCD == false && _stopMove == false)
@@ -221,7 +226,7 @@ public class Boss : MonoBehaviour
                 StartCoroutine(BigBeamEnergy());
                 _energyDown = false;
             }
-            Debug.Log(_beamEnergy);
+           //Debug.Log(_beamEnergy);
         }
        
         if (_beamEnergy <= 0)
@@ -273,11 +278,11 @@ public class Boss : MonoBehaviour
             Destroy(other.gameObject);
             BossDamageFlash();
         }
-        if (other.tag == "RingShot")
+        if (other.tag == "Ring")
         {
             _currHealth -= 5;
             Debug.Log(_currHealth + " " + other.tag);
-            Destroy(other.gameObject);
+            
             BossDamageFlash();
         }
     }
