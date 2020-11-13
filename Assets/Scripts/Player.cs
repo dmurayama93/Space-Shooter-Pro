@@ -295,11 +295,9 @@ public class Player : MonoBehaviour
 
         if (_playerLife < 1)
         {
-            //communicate with spawn manager when player is dead
+
             _spawnManager.OnPlayerDeath();
             Instantiate(_explosionPrefab, transform.position, Quaternion.identity);
-            //_audioSource.clip = _playerExplosionSoundClip;
-            //_audioSource.Play();
             Destroy(this.gameObject, .25f);
         }
     }
@@ -346,7 +344,6 @@ public class Player : MonoBehaviour
     public void SpeedBoostActive()
     {
         _speedBoostActive = true;
-        //_speed *= _speedMultiplier;
         if (_speedBoostActive == true)
         {
             _boostNeg = 0f;
