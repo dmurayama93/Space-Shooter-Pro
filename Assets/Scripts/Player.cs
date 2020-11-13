@@ -349,8 +349,8 @@ public class Player : MonoBehaviour
             _currentBoost = 100f;
             _boostNeg = 0f;
         }
-        StopCoroutine(SpeedBoostDownRoutine());
-        StartCoroutine(SpeedBoostDownRoutine());
+        StopCoroutine("SpeedBoostDownRoutine");
+        StartCoroutine("SpeedBoostDownRoutine");
     }
 
     IEnumerator SpeedBoostDownRoutine()
