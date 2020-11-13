@@ -31,7 +31,11 @@ public class PoisonCloud : MonoBehaviour
         _spriteRenderePoison = GetComponent<SpriteRenderer>();
         _maxSize = 0.4f;
 
-        _player = GameObject.Find("Player").GetComponent<Player>();
+        if (_player != null)
+        {
+            _player = GameObject.Find("Player").GetComponent<Player>();
+        }
+        
         if (_player == null)
         {
             Debug.Log("No Player");

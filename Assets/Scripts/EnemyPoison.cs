@@ -24,11 +24,18 @@ public class EnemyPoison : MonoBehaviour
     [SerializeField]
     private GameObject _explosionPrefab;
 
+    private SpawnManager _spawnManager;
+
     // Start is called before the first frame update
     void Start()
     {
         _player = GameObject.Find("Player").GetComponent<Player>();
+        _spawnManager = GameObject.Find("Spawn_Manager").GetComponent<SpawnManager>();
 
+        if (_spawnManager == null)
+        {
+            Debug.Log("No Spawn Manager");
+        }
         if (_player == null)
         {
             Debug.Log("No Player");
@@ -115,6 +122,7 @@ public class EnemyPoison : MonoBehaviour
             if (_player != null)
             {
                 _player.AddScore(10);
+                _spawnManager.WavePoints(10);
             }
 
             //trigger anim
@@ -134,6 +142,7 @@ public class EnemyPoison : MonoBehaviour
             if (_player != null)
             {
                 _player.AddScore(10);
+                _spawnManager.WavePoints(10);
             }
 
             //trigger anim
@@ -146,6 +155,22 @@ public class EnemyPoison : MonoBehaviour
             _dead = true;
             Destroy(GetComponent<Collider2D>());
             Destroy(this.gameObject, .25f);
+        }
+        if (other.tag == "HomingMissile")
+        {
+            Destroy(other.gameObject);
+
+            if (_player != null)
+            {
+                _player.AddScore(10);
+                _spawnManager.WavePoints(10);
+            }
+            _enemySpeed = 0;
+            _speedDirection = 0;
+
+            _dead = true;
+            Destroy(GetComponent<Collider2D>());
+            Destroy(this.gameObject, 2.8f);
         }
     }
 

@@ -33,6 +33,7 @@ public class Player : MonoBehaviour
     private SpawnManager _spawnManager;
 
     private bool _homingMissileActive;
+    [SerializeField]
     private bool _tripleShotActive;
     [SerializeField]
     private bool _ringActive;
@@ -88,6 +89,8 @@ public class Player : MonoBehaviour
 
     [SerializeField]
     private GameObject _explosionPrefab;
+
+    private bool _newTripleShot;
 
     // Start is called before the first frame update
     void Start()
@@ -318,23 +321,22 @@ public class Player : MonoBehaviour
         thruster.ThrusterDebuffActive(_thrusterDebuff);
     }
     public void TripleShotActive()
-    {
+    { 
         _tripleShotActive = true;
         StopCoroutine(TripleShotPowerDownRoutine());
         StartCoroutine(TripleShotPowerDownRoutine());
-    }
-
-    public void RingActive()
-    {
-        _ringActive = true;
     }
 
     IEnumerator TripleShotPowerDownRoutine()
     {
         yield return new WaitForSeconds(5.0f);
         _tripleShotActive = false;
-    }
 
+    }
+    public void RingActive()
+    {
+        _ringActive = true;
+    }
     public void SpeedBoostActive()
     {
         _speedBoostActive = true;

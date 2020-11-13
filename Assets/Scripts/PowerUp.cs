@@ -40,6 +40,7 @@ public class PowerUp : MonoBehaviour
                 {
                     case 0:
                         player.TripleShotActive();
+                        //player.NewTripleShot(true);
                         break;
                     case 1:
                         player.SpeedBoostActive();

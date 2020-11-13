@@ -33,6 +33,13 @@ public class SpawnManager : MonoBehaviour
     private float _circleEnemyCD;
 
     private float _enemyCD;
+
+    //Wave Manager
+    private int _waveLevel = 1;
+    private float _wavePoints;
+    private float _wavePointsReq = 100f;
+    private float _diffMultiplier = 1.5f;
+    private bool _keepSpawning;
     
 
     private bool _stopSpawning = false;
@@ -56,7 +63,8 @@ public class SpawnManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        Debug.Log("Wave " + _waveLevel + " " + "wavepoints " + _wavePoints + " " + "Wavepoints Req " + _wavePointsReq);
+        WaveManager();
     }
 
     IEnumerator SpawnEnemyRoutine()
@@ -101,4 +109,54 @@ public class SpawnManager : MonoBehaviour
     {
         _stopSpawning = true;
     }
+
+    private void InBetweenWaves()
+    {
+        _stopSpawning = true;
+    }
+    public void WavePoints(int points)
+    {
+        _wavePoints += points;
+    }
+
+    IEnumerator InBetweenWavesRoutine()
+    {
+        InBetweenWaves();
+        _waveLevel++;
+        _wavePointsReq *= _diffMultiplier;
+        _wavePoints = 0;
+        
+        yield return new WaitForSeconds(10f);
+        _stopSpawning = false;
+        _keepSpawning = true;  
+    }
+    public void WaveManager()
+    {
+        if (_wavePoints < _wavePointsReq && _keepSpawning == true)
+        {
+            StartSpawning();
+            _keepSpawning = false;
+        }
+        if (_wavePoints >= _wavePointsReq)
+        {
+            StartCoroutine(InBetweenWavesRoutine());
+        }
+                
+        //_waveLevel++;
+        //_wavePointsReq *= _diffMultiplier;
+        //_wavePoints = 0;
+
+    }
+    public void StartGame()
+    {
+        _keepSpawning = true;
+    }
+    //Wave Level 1 Start
+    //When Player Points >= 100
+    //Stop Spawning
+    //Enemies Destroy when < -8f y, need reference to enemy sheets to destroy
+    //Wait 5-10 seconds between waves
+    //Wave ++
+    //DiffMultiplier += .5
+
 }

@@ -48,6 +48,8 @@ public class Enemy : MonoBehaviour
 
     private float _distanceLaser;
 
+    private SpawnManager _spawnManager;
+
     //public CameraShake camerashake;
 
     // Start is called before the first frame update
@@ -55,9 +57,13 @@ public class Enemy : MonoBehaviour
     {
         _player = GameObject.Find("Player").GetComponent<Player>();
         _powerUpObject = GameObject.FindWithTag("PowerUp");
-        
+        _spawnManager = GameObject.Find("Spawn_Manager").GetComponent<SpawnManager>();
         _audioSource = GetComponent<AudioSource>();
 
+        if (_spawnManager == null)
+        {
+            Debug.Log("No Spawn Manager");
+        }
         if (_player == null)
         {
             Debug.Log("No Player");
@@ -202,6 +208,7 @@ public class Enemy : MonoBehaviour
                 if (_player != null)
                 {
                     _player.AddScore(10);
+                    _spawnManager.WavePoints(10);
                 }
                 //trigger anim
                 _enemyAnimator.SetTrigger("OnEnemyDeath");
@@ -223,6 +230,7 @@ public class Enemy : MonoBehaviour
             if (_player != null)
             {
                 _player.AddScore(10);
+                _spawnManager.WavePoints(10);
             }
             _enemyAnimator.SetTrigger("OnEnemyDeath");
             _enemySpeed = 0;
@@ -241,6 +249,7 @@ public class Enemy : MonoBehaviour
             if (_player != null)
             {
                 _player.AddScore(10);
+                _spawnManager.WavePoints(10);
             }
 
             _enemyAnimator.SetTrigger("OnEnemyDeath");
@@ -298,21 +307,24 @@ public class Enemy : MonoBehaviour
     {
         Vector3 localScale = transform.localScale;
         //if enemy y axis <= player y axis, rotate
-        if (gameObject.transform.position.y < _player.transform.position.y && _player != null && _enemyDead == false)
+        if (_player != null)
         {
-            localScale.y = -0.75f;
-            transform.localScale = localScale;
-            FireLaserUp();
-        }
-        if (gameObject.transform.position.y >= _player.transform.position.y && _player != null & _enemyDead == false)
-        {
-            localScale.y = 0.75f;
-            transform.localScale = localScale;
-            FireLaser();
-        }
-        else if (_player == null)
-        {
-            return;
+            if (gameObject.transform.position.y < _player.transform.position.y && _enemyDead == false)
+            {
+                localScale.y = -0.75f;
+                transform.localScale = localScale;
+                FireLaserUp();
+            }
+            if (gameObject.transform.position.y >= _player.transform.position.y & _enemyDead == false)
+            {
+                localScale.y = 0.75f;
+                transform.localScale = localScale;
+                FireLaser();
+            }
+            else if (_player == null)
+            {
+                return;
+            }
         }
     }
     private void KillPowerUp()
@@ -334,19 +346,21 @@ public class Enemy : MonoBehaviour
 
     private void AggressiveEnemy()
     {
-        float _distance = Vector3.Distance(gameObject.transform.position, _player.transform.position);
+        if (_player != null)
+        {
+            float _distance = Vector3.Distance(gameObject.transform.position, _player.transform.position);
 
-        if (_distance <= 5.0f && _enemyDead == false)
-        {
-            _enemySpeed = 5.0f;
-            //Debug.Log(_distance + " " + _enemySpeed);
+            if (_distance <= 5.0f && _enemyDead == false)
+            {
+                _enemySpeed = 5.0f;
+                //Debug.Log(_distance + " " + _enemySpeed);
+            }
+            else if (_distance > 5.0f && _enemyDead == false)
+            {
+                _enemySpeed = 3.0f;
+                //Debug.Log(_enemySpeed + " No Charge");
+            }
         }
-        else if (_distance > 5.0f && _enemyDead == false)
-        {
-            _enemySpeed = 3.0f;
-            //Debug.Log(_enemySpeed + " No Charge");
-        }
-        
     }
     private void DodgeShot()
     {
