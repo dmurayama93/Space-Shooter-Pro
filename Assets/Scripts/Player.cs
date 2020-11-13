@@ -421,7 +421,7 @@ public class Player : MonoBehaviour
             {
                 float _powerUpDist = Vector3.Distance(gameObject.transform.position, _powerUp.transform.position);
 
-                if (_powerUpDist <= 5.0f)
+                if (_powerUpDist <= 7.0f)
                 {
                     Debug.Log("PowerUp Drag to Player " + _powerUpDist);
                     _powerUp.transform.position = Vector3.MoveTowards(_powerUp.transform.position, gameObject.transform.position, 5f * Time.deltaTime);
