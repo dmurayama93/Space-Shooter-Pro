@@ -36,7 +36,9 @@ public class Boss : MonoBehaviour
     private BossBeam _bossBeam;
 
     //hp
+    [SerializeField]
     private float _maxHealth = 10;
+    [SerializeField]
     private float _currHealth;
     private bool _bossDead = true;
 
@@ -69,7 +71,6 @@ public class Boss : MonoBehaviour
         _randDirection = Random.Range(1, 3);
         _ammo = _ammoMax;
         transform.position = new Vector3(0f, 8f, 0f);
-        BossHpMax(_maxHealth);//
         _currHealth = _maxHealth;
         _spriteRendererBoss = GetComponent<SpriteRenderer>();
     }
@@ -77,6 +78,7 @@ public class Boss : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        BossHpMax(_maxHealth);
         InitialMovement();
         BossCharge();
         if (_changeDirection == true)
